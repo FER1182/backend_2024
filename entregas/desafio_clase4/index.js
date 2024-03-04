@@ -1,3 +1,4 @@
+const { createDiffieHellmanGroup } = require("crypto");
 const fs = require("fs")
 
 
@@ -48,13 +49,14 @@ class ProductManager {
         }
     }
     getProducts() {
-        if(this.products.length ===0){
-            console.log(this.products)
-        }else{
-            this.products.forEach(producto => {
-                console.log(`ID: ${producto.id}, Title: ${producto.title}, Description: ${producto.description}, Price: ${producto.price}, Thumbnail: ${producto.thumbnail}, Code: ${producto.code}, Stock: ${producto.stock}`);
-            });
+        const leerArchivos = async () => {
+            const respuesta = await fs.promises.readFile(this.path, "utf-8");
+            const nuevoArray = JSON.parse(respuesta);
+            console.log(nuevoArray);
         }
+        leerArchivos();
+        
+       
     }
 }
 
@@ -64,12 +66,13 @@ const manager = new ProductManager("./productos.json");
 manager.getProducts();
 
 // Agrego producto de prueba
-manager.addProduct("producto prueba", "Este es un producto prueba", 200, "sin imagen", "abc123", 25);
+//manager.addProduct("producto prueba", "Este es un producto prueba", 200, "sin imagen", "abc123", 25);
+//manager.addProduct("producto prueba2", "Este es un producto prueba2", 200, "sin imagen", "abc1232", 125);
 // Muestra el producto agregado
 manager.getProducts();
 
 // Se llamará al método “addProduct” con los mismos campos de arriba, debe arrojar un error porque el código estará repetido.
-manager.addProduct("producto prueba", "Este es un producto prueba", 200, "sin imagen", "abc123", 25);
+/*manager.addProduct("producto prueba", "Este es un producto prueba", 200, "sin imagen", "abc123", 25);
 
 // Obtener un producto por id
 manager.addProduct("producto prueba 2", "Este es un producto prueba 2", 100, "sin imagen2", "abc2123", 20);
@@ -86,3 +89,4 @@ manager.addProduct("", "Descripción", 25, "thumbnail4.jpg", "PROD02", 5);
 
 // Mostrar los productos agregados
 manager.getProducts();
+*/
