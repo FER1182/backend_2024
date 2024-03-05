@@ -13,6 +13,9 @@ const operaciones = require("./operaciones.js")
 console.log(operaciones.suma(5,5))
 
 console.log(operaciones.resta(10,5))
+
+
+console.log(operaciones.multi(10,5))
 //lo ejecuto    con node src/app.js
 
 /**modulos nativos son los que vienen incluidos en node js y 
@@ -33,5 +36,22 @@ console.log(operaciones.resta(10,5))
 //por ejemplo moments
 
 //1- instalamos desde la terminal con npm install y el nombre del modulo
-// npm install moment
+// npm install moment0
 //npm i express
+// para borrar npm uninstall momento
+//npm install moment@1.0  es para instalar una version en particular
+
+//instalamso dependencias de desarrollo
+//ejemplo npm i nodemon -D
+
+//ESTAS INSTALACIONES SOLO SE HACEN LOCAL EN CLASE 5 ...NO EN GLOBAL
+//con ctl c se corta el nodemon
+//npm start lo hace una sola vez..el "dev":"nodemon src/app.js", es para activar 
+// nodemon escribiendo en consola **npm run dev**
+// para instalarlo global le ponemos -g
+// ejemplo npm i sass -g  para ver las globales es npm list -g
+//npm outdated nos muestra cuales estan desactualizadas con -g se ven las globales
+//npm moment@latest y la actualiza a la mas nueva 
+
+
+//ejercicio diapo 44
