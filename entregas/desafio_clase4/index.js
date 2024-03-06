@@ -64,6 +64,17 @@ class ProductManager {
       console.log("no existe el archivo");
     }
   }
+  updateProduct(){
+
+  }
+
+  deletProduct(){
+    
+  }
+
+
+
+
 }
 
 // Ejemplo de uso:
@@ -72,30 +83,16 @@ const manager = new ProductManager("./productos.json");
 manager.getProducts();
 
 // Agrego producto de prueba
-manager.addProduct(
-  "producto prueba",
-  "Este es un producto prueba",
-  200,
-  "sin imagen",
-  "abc123",
-  25
-);
-manager.addProduct(
-  "producto prueba2",
-  "Este es un producto prueba2",
-  200,
-  "sin imagen",
-  "abc1232",
-  125
-);
+manager.addProduct("producto prueba","Este es un producto prueba",200,"sin imagen","abc123",25);
+manager.addProduct("producto prueba2","Este es un producto prueba2",200,"sin imagen","abc1232",125);
 // Muestra el producto agregado
-manager.getProducts();
+//manager.getProducts();
 
 // Se llamará al método “addProduct” con los mismos campos de arriba, debe arrojar un error porque el código estará repetido.
-/*manager.addProduct("producto prueba", "Este es un producto prueba", 200, "sin imagen", "abc123", 25);
+//manager.addProduct("producto prueba", "Este es un producto prueba", 200, "sin imagen", "abc123", 25);
 
 // Obtener un producto por id
-manager.addProduct("producto prueba 2", "Este es un producto prueba 2", 100, "sin imagen2", "abc2123", 20);
+//manager.addProduct("producto prueba 2", "Este es un producto prueba 2", 100, "sin imagen2", "abc2123", 20);
 
 const producto = manager.getProductById(2); 
 console.log(producto);
@@ -104,9 +101,9 @@ console.log(producto);
 manager.getProductById(10); 
 
 // Intentar agregar un producto con propiedades vacías
-manager.addProduct("", "Descripción", 25, "thumbnail4.jpg", "PROD02", 5);
+//manager.addProduct("", "Descripción", 25, "thumbnail4.jpg", "PROD02", 5);
 
 
 // Mostrar los productos agregados
-manager.getProducts();
-*/
+//manager.getProducts();
+
