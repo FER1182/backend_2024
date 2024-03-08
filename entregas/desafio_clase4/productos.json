@@ -16,5 +16,14 @@
     "thumbnail": "sin imagen",
     "code": "abc1232",
     "stock": 125
+  },
+  {
+    "id": 3,
+    "title": "producto prueba3",
+    "description": "Este es un producto prueba3",
+    "price": 203,
+    "thumbnail": "sin imagen3",
+    "code": "abc1233",
+    "stock": 135
   }
 ]
