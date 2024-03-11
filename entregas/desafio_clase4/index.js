@@ -42,10 +42,13 @@ class ProductManager {
     guardarArchivos();
     return producto; // Retornamos el producto agregado
   }
+  
+  
   getProductById(id) {
     const productArchivo = this.getProducts()
     const producto = productArchivo.find((producto) => producto.id === id);
     if (producto) {
+      console.log(producto)
       return producto;
     } else {
       console.error(`Error: Producto con id ${id} no encontrado.`);
@@ -57,28 +60,35 @@ class ProductManager {
        const leerArchivos =  () => {
         const respuesta = fs.readFileSync(this.path, "utf-8");
         const nuevoArray = JSON.parse(respuesta);
-        console.log(nuevoArray);
         return nuevoArray;
       };
       const archivoLeido = leerArchivos()
       return archivoLeido;
     } else {
-        
-      console.log("no existe el archivo");
+      return 
     }
   }
+  
+  mostrarProductos(){
+    if(this.getProducts()){
+    const producto = this.getProducts();
+    console.log(producto)
+    }else{
+      console.log("no existen productos")
+    }
+  }
+  
+  
+  
   updateProduct(id,campoActualizar){
     const prodCompleto = this.getProducts()
-    
-
-    
   }
   
 
   deletProduct(id){
     const prodCompleto = this.getProducts()
-    const productoSinEliminado = prodCompleto.find((producto) => producto.id !== id);
-    
+    const productoSinEliminado = prodCompleto.filter((producto) => producto.id !== id);
+    console.log(productoSinEliminado)
     const guardarArchivo = async () => {
       await fs.promises.writeFile(
         this.path,
@@ -88,9 +98,6 @@ class ProductManager {
     guardarArchivo();
   }
 
-
-
-
 }
 
 // Ejemplo de uso:
@@ -98,12 +105,12 @@ const manager = new ProductManager("./productos.json");
 //Se llamará “getProducts” recién creada la instancia, debe devolver no existe el archivo
 //manager.getProducts();
 
-// Agrego producto de prueba
-//manager.addProduct("producto prueba","Este es un producto prueba",200,"sin imagen","abc123",25);
-//manager.addProduct("producto prueba2","Este es un producto prueba2",200,"sin imagen","abc1232",125);
-//manager.addProduct("producto prueba3","Este es un producto prueba3",203,"sin imagen3","abc1233",135);
+// // Agrego producto de prueba
+// manager.addProduct("producto prueba5","Este es un producto prueba5",205,"sin imagen","abc5",25);
+// manager.addProduct("producto prueba4","Este es un producto prueba4",204,"sin imagen","abc4",125);
+// manager.addProduct("producto prueba8","Este es un producto prueba8",208,"sin imagen3","abc8",135);
 // Muestra el producto agregado
-//manager.getProducts();
+//manager.mostrarProductos();
 
 // Se llamará al método “addProduct” con los mismos campos de arriba, debe arrojar un error porque el código estará repetido.
 //manager.addProduct("producto prueba", "Este es un producto prueba", 200, "sin imagen", "abc123", 25);
@@ -111,13 +118,13 @@ const manager = new ProductManager("./productos.json");
 // Obtener un producto por id
 //manager.addProduct("producto prueba 2", "Este es un producto prueba 2", 100, "sin imagen2", "abc2123", 20);
 
-//const producto = manager.getProductById(2); 
-//console.log(producto);
+//manager.getProductById(1); 
+
 
 // Obtener un producto por id que no existe
 //manager.getProductById(10); 
-manager.updateProduct(2,{title:"soy el que actualiza"}); 
-//manager.deletProduct(2);
+//manager.updateProduct(2,{title:"soy el que actualiza"}); 
+manager.deletProduct(2);
 // Intentar agregar un producto con propiedades vacías
 //manager.addProduct("", "Descripción", 25, "thumbnail4.jpg", "PROD02", 5);
 
