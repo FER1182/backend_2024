@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { title } = require("process");
+
 
 class ProductManager {
   constructor(path) {
@@ -32,7 +32,9 @@ class ProductManager {
       stock: stock, //numero de piezas disponibles
     };
     this.products.push(producto);
-
+    if(this.getProducts()){
+      
+    }
     const guardarArchivos = async () => {
       await fs.promises.writeFile(
         this.path,
