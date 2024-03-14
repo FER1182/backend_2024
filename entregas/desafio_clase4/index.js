@@ -1,6 +1,4 @@
 const fs = require("fs");
-const { clearScreenDown } = require("readline");
-const { CLIENT_RENEG_LIMIT } = require("tls");
 
 
 class ProductManager {
@@ -18,40 +16,40 @@ class ProductManager {
       return null;
     }
 
-        if (this.getProducts()) {
-        const arrayArchivos = this.getProducts()
-        console.log(arrayArchivos);
-        this.products = arrayArchivos
-        console.log(this.products);
-        let max = Math.max.apply(Math, arrayArchivos.map(function(o) {return o.id;}))
-        this.productIdCounter = max+1
-        } 
+    if (this.getProducts()) {
+      const arrayArchivos = this.getProducts()
+      console.log(arrayArchivos);
+      this.products = arrayArchivos
+      console.log(this.products);
+      let max = Math.max.apply(Math, arrayArchivos.map(function (o) { return o.id; }))
+      this.productIdCounter = max + 1
+    }
 
 
-      // Validar que no exista un producto con el mismo code
-      if (this.products.some((producto) => producto.code === code)) {
-        console.error(`Ya existe un producto con el code ${code}.`);
-        return null;
-      }
+    // Validar que no exista un producto con el mismo code
+    if (this.products.some((producto) => producto.code === code)) {
+      console.error(`Ya existe un producto con el code ${code}.`);
+      return null;
+    }
 
-      const producto = {
-        id: this.productIdCounter++,
-        title: title, //nombre del producto
-        description: description, //descripcion del producto
-        price: price,
-        thumbnail: thumbnail, //ruta de imagen
-        code: code, //codigo identificador
-        stock: stock, //numero de piezas disponibles
-      };
-      this.products.push(producto);
-      const guardarArchivos = async () => {
-        await fs.promises.writeFile(
-          this.path,
-          JSON.stringify(this.products, null, 2)
-        );
-      };
-      guardarArchivos();
-  
+    const producto = {
+      id: this.productIdCounter++,
+      title: title, //nombre del producto
+      description: description, //descripcion del producto
+      price: price,
+      thumbnail: thumbnail, //ruta de imagen
+      code: code, //codigo identificador
+      stock: stock, //numero de piezas disponibles
+    };
+    this.products.push(producto);
+    const guardarArchivos = () => {
+      fs.writeFileSync(
+        this.path,
+        JSON.stringify(this.products, null, 2)
+      );
+    };
+    guardarArchivos();
+
     return producto; // Retornamos el producto agregado
   }
 
@@ -69,8 +67,10 @@ class ProductManager {
   }
   getProducts() {
     if (fs.existsSync(this.path)) {
-      const leerArchivos =  () => {
+      const leerArchivos = () => {
+
         const respuesta = fs.readFileSync(this.path, "utf-8");
+
         const nuevoArray = JSON.parse(respuesta);
         return nuevoArray;
       };
@@ -94,6 +94,27 @@ class ProductManager {
 
   updateProduct(id, campoActualizar) {
     const prodCompleto = this.getProducts()
+    const { title, price } = campoActualizar;
+
+    const productoFindIndex = prodCompleto.findIndex(cliente => cliente.id === id);
+    if (productoFindIndex !== -1) {
+      //Si el cliente existe, actualizo los datos: 
+      prodCompleto[productoFindIndex].title = title;
+      prodCompleto[productoFindIndex].price = price;
+
+      console.log("Cliente actualizado");
+      const guardarArchivos = () => {
+        fs.writeFileSync(
+          this.path,
+          JSON.stringify(prodCompleto, null, 2)
+        );
+      };
+      guardarArchivos();
+
+    } else {
+      //Si el cliente no se encuentra, tiro este mensaje
+      console.log("Cliente no encotrado");
+    }
   }
 
 
@@ -118,11 +139,11 @@ const manager = new ProductManager("./productos.json");
 //manager.getProducts();
 
 // // Agrego producto de prueba
- manager.addProduct("producto prueba2","Este es un producto prueba5",202,"sin imagen","abc2",25);
- manager.addProduct("producto prueba1","Este es un producto prueba4",209,"sin imagen","abc1",125);
- manager.addProduct("producto prueba2","Este es un producto prueba8",203,"sin imagen3","abc3",135);
+//manager.addProduct("producto prueba2", "Este es un producto prueba5", 202, "sin imagen", "abc2", 25);
+//manager.addProduct("producto prueba1", "Este es un producto prueba4", 209, "sin imagen", "abc1", 125);
+//manager.addProduct("producto prueba2", "Este es un producto prueba8", 203, "sin imagen3", "abc3", 135);
 // Muestra el producto agregado
-manager.mostrarProductos();
+//manager.mostrarProductos();
 
 // Se llamará al método “addProduct” con los mismos campos de arriba, debe arrojar un error porque el código estará repetido.
 //manager.addProduct("producto prueba", "Este es un producto prueba", 200, "sin imagen", "abc123", 25);
@@ -135,7 +156,7 @@ manager.mostrarProductos();
 
 // Obtener un producto por id que no existe
 //manager.getProductById(10);
-//manager.updateProduct(2,{title:"soy el que actualiza"});
+manager.updateProduct(2, { title: "soy el que actualiza", price: 2000 });
 //manager.deletProduct(2);
 // Intentar agregar un producto con propiedades vacías
 //manager.addProduct("", "Descripción", 25, "thumbnail4.jpg", "PROD02", 5);
