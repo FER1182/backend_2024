@@ -11,12 +11,12 @@ app.use(express.urlencoded({ extended: true }));
 
 //Rutas 
 import productsRouter from "./routes/products.router.js"
-//import cartsRouter from "./routes/carts.router.js"
+import cartsRouter from "./routes/carts.router.js"
 
 
 
 app.use("/api/",productsRouter);
-//app.use("/",cartsRouter)
+app.use("/",cartsRouter)
 
 
 app.listen(PORT, () => {

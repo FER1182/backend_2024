@@ -1,7 +1,6 @@
 {
   "name": "desafio_clase8",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -16,5 +15,6 @@
   },
   "dependencies": {
     "express": "^4.18.3"
-  }
+  },
+  "description": ""
 }
