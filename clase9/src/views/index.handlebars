@@ -1,0 +1,13 @@
+<h1>Bienvenido ! estamos usando express-Handlebars</h1>
+<h2>mi nombre es {{usuario.nombre}}</h2>
+<h2>mi apellido es {{usuario.apellido}} </h2>
+
+{{#if usuario.mayorEdad}}
+    <p>Es mayor de edad</p>
+{{else}}
+    <p>es menor de edad</p>
+{{/if}}
+{{>card}}
+
+{{!-- esto es para conectar lo q esta dentro de la carpeta public  --}}
+<script src="js/main.js"></script>
