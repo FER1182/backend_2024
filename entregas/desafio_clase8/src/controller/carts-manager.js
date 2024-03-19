@@ -12,7 +12,7 @@ class CartManager {
     async addCart(objectProducts) {
         let {
             idProducts,
-            cantidad,
+            cantidad = 1,
         } = objectProducts;
 
         
@@ -86,18 +86,25 @@ class CartManager {
     }
 
     // Actualizamos algun producto:
-    async updateCart(idCart,idProduct, productoAgregado,) {
+    async updateCart(idCart,idProduct, cantProductoAgregado =1,) {
         try {
             const arrayCarts = await this.leerArchivos();
-            productoActualizado = Object.assign({id:idCart},productoAgregado)
+            const cartSelect = await this.getCartById(idCart)
+            cartSelect.push({
+                idProducts : idProduct,
+                cantidad : cantProductoAgregado 
+            })
+            
+            
+            //cartSelect = Object.assign({id:idCart},cartSelect)
                
 
-            const index = arrayProductos.findIndex(item => item.id === id);
+            const index = arrayCarts.findIndex(item => item.id === idCart);
 
             if (index !== -1) {
 
-                arrayProductos.splice(index, 1, productoActualizado);
-                await this.guardarArchivo(arrayProductos);
+                arrayCarts.splice(index, 1, cartSelect);
+                await this.guardarArchivo(arrayCarts);
             } else {
                 console.log("no se encontró el producto");
             }

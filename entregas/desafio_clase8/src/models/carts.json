@@ -8,21 +8,33 @@
       }
     ]
   },
-  {
-    "id": 4,
-    "products": [
-      {
-        "idProducts": 3,
-        "cantidad": 1
+  [
+    {
+      "idProducts": 3,
+      "cantidad": 1
+    },
+    {
+      "idProducts": 5,
+      "cantidad": {
+        "cantidad": 2
       }
-    ]
-  },
+    }
+  ],
   {
     "id": 5,
     "products": [
       {
         "idProducts": 4,
         "cantidad": 2
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "products": [
+      {
+        "idProducts": 4,
+        "cantidad": 1
       }
     ]
   }

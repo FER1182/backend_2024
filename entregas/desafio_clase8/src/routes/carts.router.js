@@ -47,10 +47,10 @@ router.post("/carts", async(req, res) => {
 router.post("/carts/:cid/product/:pid", async(req, res) => {
     const idCart =parseInt(req.params.cid); 
     const idProduct = parseInt(req.params.pid);
-    const productoAgregado = req.body;
+    const cantProdAgregado = req.body;
     try {
 
-        const producto = await manager.updateProduct(id,productoActual);
+        const producto = await manager.updateCart(idCart,idProduct,cantProdAgregado);
       
         res.send({message:"producto actualizado con exito"})
     } catch (error) {
