@@ -16,7 +16,7 @@ import cartsRouter from "./routes/carts.router.js"
 
 
 app.use("/api/",productsRouter);
-app.use("/",cartsRouter)
+app.use("/api/",cartsRouter)
 
 
 app.listen(PORT, () => {

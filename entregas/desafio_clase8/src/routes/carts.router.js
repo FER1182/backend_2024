@@ -11,14 +11,14 @@ router.get("/carts/:cid", async (req, res) => {
 
     try {
 
-        const producto = await manager.getProductById(parseInt(id));
-        if (!producto) {
+        const carrito = await manager.getCartById(parseInt(id));
+        if (!carrito) {
             return res.json({
-                error: "Producto no encontrado"
+                error: "Carrito no encontrado"
             });
         }
 
-        res.json(producto);
+        res.json(carrito);
     } catch (error) {
         console.error("Error al obtener producto", error);
         res.status(500).json({
@@ -33,7 +33,7 @@ router.post("/carts", async(req, res) => {
 
         const producto = await manager.addCart(nuevoProducto);
       
-        res.send({message:"producto agregado"})
+        res.send({message:"carrito agregado"})
     } catch (error) {
         console.error("Error al guardar el producto", error);
         res.status(500).json({
@@ -45,8 +45,9 @@ router.post("/carts", async(req, res) => {
 })
 
 router.post("/carts/:cid/product/:pid", async(req, res) => {
-    const id = parseInt(req.params.pid);
-    const productoActual = req.body;
+    const idCart =parseInt(req.params.cid); 
+    const idProduct = parseInt(req.params.pid);
+    const productoAgregado = req.body;
     try {
 
         const producto = await manager.updateProduct(id,productoActual);

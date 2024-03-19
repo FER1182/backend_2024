@@ -7,19 +7,27 @@ class CartManager {
         this.path = path;
     }
 
-    async addCart(products) {
+    
+    //agrega el carrito con el producto
+    async addCart(objectProducts) {
+        let {
+            idProducts,
+            cantidad,
+        } = objectProducts;
 
-          if (this.getProducts()) {
-            const arrayArchivos = await this.getProducts()
-            this.products = arrayArchivos
+        
+        if (this.getCarts()) {
+            const arrayArchivos = await this.getCarts()
+            this.carts = arrayArchivos
             let max = Math.max.apply(Math, arrayArchivos.map(function (o) { return o.id; }))
-            this.productIdCounter = max + 1
-          }
+            this.cartsIdCounter = max + 1
+        }
+        
         const cart = {
             id: this.cartsIdCounter++,
             products: [{
-                idProducts : products,
-                cantidad : cantidad++ 
+                idProducts : idProducts,
+                cantidad : cantidad 
             }]
             
 
@@ -27,11 +35,11 @@ class CartManager {
         this.carts.push(cart);
         // Guardamos el array en el archivo:
 
-        await this.guardarArchivo(this.products);
+        await this.guardarArchivo(this.carts);
 
     }
 
-    async getProducts() {
+    async getCarts() {
         try {
             const nuevoArray = await this.leerArchivos();
             return nuevoArray;
@@ -40,18 +48,19 @@ class CartManager {
         }
     }
 
-    async getProductById(id) {
+    //lista productos que pertenezcan al carrito
+    async getCartById(id) {
         try {
-            const productArchivo = await this.leerArchivos();
-            console.log(productArchivo);
-            const producto = productArchivo.find((producto) => producto.id === id);
-            console.log(producto);
-            if (!producto) {
-                console.error(`Error: Producto con id ${id} no encontrado.`);
-            } else {
-                console.log("producto encontrado")
-                return producto;
-            }
+            const cartArchivo = await this.leerArchivos();
+            
+            const cart = cartArchivo.find((producto) => producto.id === id); 
+            
+            if (!cart) {
+                console.error(`Error: Carrito con id ${id} no encontrado.`);
+            }else{
+                return cart.products ;
+            }    
+            
         } catch (error) {
             console.log("Error al leer el archivo", error);
         }
@@ -68,19 +77,19 @@ class CartManager {
         }
     }
 
-    async guardarArchivo(arrayProductos) {
+    async guardarArchivo(arrayCarts) {
         try {
-            await fs.writeFile(this.path, JSON.stringify(arrayProductos, null, 2));
+            await fs.writeFile(this.path, JSON.stringify(arrayCarts, null, 2));
         } catch (error) {
             console.log("Error al guardar el archivo", error);
         }
     }
 
     // Actualizamos algun producto:
-    async updateProduct(id, productoActualizado) {
+    async updateCart(idCart,idProduct, productoAgregado,) {
         try {
-            const arrayProductos = await this.leerArchivos();
-            productoActualizado = Object.assign({id:id},productoActualizado)
+            const arrayCarts = await this.leerArchivos();
+            productoActualizado = Object.assign({id:idCart},productoAgregado)
                
 
             const index = arrayProductos.findIndex(item => item.id === id);
@@ -98,25 +107,6 @@ class CartManager {
         }
     }
 
-    // Eliminamos algun producto:
-
-    async deletProduct(id) {
-        try {
-            const prodCompleto = await this.leerArchivos();
-            const index = prodCompleto.findIndex(item => item.id === id);
-
-            if (index !== -1) {
-
-                const productoSinEliminado = prodCompleto.filter((producto) => producto.id !== id);
-                await this.guardarArchivo(productoSinEliminado);
-            } else {
-                console.log("no se encontró el producto");
-            }
-
-        } catch (error) {
-            console.log("Error al eliminar el producto", error);
-        }
-    }
 
 }
 
