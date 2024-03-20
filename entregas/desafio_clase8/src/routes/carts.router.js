@@ -27,40 +27,46 @@ router.get("/carts/:cid", async (req, res) => {
     }
 })
 
-router.post("/carts", async(req, res) => {
+router.post("/carts", async (req, res) => {
     const nuevoProducto = req.body;
     try {
 
         const producto = await manager.addCart(nuevoProducto);
-      
-        res.send({message:"carrito agregado"})
+
+        res.send({ message: "carrito agregado" })
     } catch (error) {
         console.error("Error al guardar el producto", error);
         res.status(500).json({
             error: "Error interno del servidor"
         });
     }
-    
-    
+
+
 })
 
-router.post("/carts/:cid/product/:pid", async(req, res) => {
-    const idCart =parseInt(req.params.cid); 
+router.post("/carts/:cid/product/:pid", async (req, res) => {
+    const idCart = parseInt(req.params.cid);
     const idProduct = parseInt(req.params.pid);
-    const cantProdAgregado = req.body;
+    const cantProdAgregado = req.body.cantidad;
     try {
 
-        const producto = await manager.updateCart(idCart,idProduct,cantProdAgregado);
-      
-        res.send({message:"producto actualizado con exito"})
+        const cartNew = await manager.updateCart(idCart, idProduct, cantProdAgregado);
+        if (!cartNew) {
+            return res.json({
+                error: "Carrito no encontrado"
+            });
+        }
+        res.send({ message: "producto actualizado con exito" })
+        
+
     } catch (error) {
         console.error("Error al guardar el producto", error);
         res.status(500).json({
             error: "Error interno del servidor"
         });
     }
-    
-    
+
+
 })
 
 
