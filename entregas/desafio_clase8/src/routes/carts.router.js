@@ -31,7 +31,7 @@ router.post("/carts", async (req, res) => {
     const nuevoProducto = req.body;
     try {
 
-        const producto = await manager.addCart(nuevoProducto);
+        const producto = await manager.addCart();
 
         res.send({ message: "carrito agregado" })
     } catch (error) {
