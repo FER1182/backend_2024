@@ -46,6 +46,7 @@ io.on("connection",()=>{
     console.log("nuevo usuario conectado");
 
     io.on("message",data=>{
+        console.log(data);
         messages.push(data)
         io.emit("messagesLogs",messages);
     })
@@ -61,4 +62,8 @@ io.on("connection",()=>{
 
 
 
-
+/* si me olvide y no puse gitignore
+git rm -r --cached . 
+git add .
+git commit -m "mensaje"
+git push*/
