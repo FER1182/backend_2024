@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "leche la serenisima",
+    "description": "leche entera en sache",
+    "code": "LEC454",
+    "price": 3000,
+    "status": true,
+    "stock": 25,
+    "category": "almacen"
+  },
+  {
+    "id": 3,
+    "title": "mayonesa",
+    "description": "mayones light natura",
+    "code": "MAY5654",
+    "price": 3500,
+    "status": true,
+    "stock": 15,
+    "category": "almacen"
+  },
+  {
+    "id": 4,
+    "title": "ketchup",
+    "description": "ketchup danica",
+    "code": "KCHD1154",
+    "price": 1290,
+    "status": true,
+    "stock": 13,
+    "category": "almacen"
+  }
+]
