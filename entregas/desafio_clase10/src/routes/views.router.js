@@ -20,19 +20,11 @@ router.get("/", async (req, res) => {
     }
 })
 
-router.get("/realtimeproducts", async (req, res) => {
-    try {
+router.get("/realtimeproducts", (req, res) => {
         
+        res.render("realTimeProducts");
         
-        
-    } catch (error) {
-
-        console.error("Error al obtener productos", error);
-        res.status(500).json({
-            error: "Error interno del servidor"
-        });
-    }
-})
+   })
 
 export default router
 

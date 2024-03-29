@@ -7,7 +7,7 @@ import viewsRouter from "./routes/views.router.js"
 import productsRouter from "./routes/products.router.js"
 import cartsRouter from "./routes/carts.router.js"
 
-//import socket from "socket.io"
+import { Server } from "socket.io";
 
 
 const app = express();
@@ -27,8 +27,23 @@ app.use("/api/",productsRouter);
 app.use("/api/",cartsRouter)
 app.use("/",viewsRouter);
 
-app.listen(PUERTO,()=>{
+const httpServer = app.listen(PUERTO,()=>{
     console.log(`escuchando en el puerto ${PUERTO}`);
 })
 
 
+const io = new Server(httpServer);
+
+import ProductManager from "./controller/products-manager.js";
+const manager = new ProductManager("./src/models/productos.json");
+
+io.on("connection", async(socket)=>{
+    console.log("nuevo usuario conectado");
+
+    socket.on("message",data=>{
+        
+        messages.push(data)
+        io.emit("messagesLogs",messages);
+    })
+
+})
