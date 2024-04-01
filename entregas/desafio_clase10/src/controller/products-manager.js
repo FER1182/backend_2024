@@ -16,7 +16,7 @@ class ProductManager {
             status = true,
             stock,
             category,
-            thumbnail,
+            img,
         } = objetoProduct;
         
 
@@ -48,7 +48,7 @@ class ProductManager {
             status:status,
             stock: stock, //numero de piezas disponibles
             category:category,
-            thumbnail: thumbnail, //ruta de imagen
+            img: img, //ruta de imagen
 
         };
         this.products.push(producto);

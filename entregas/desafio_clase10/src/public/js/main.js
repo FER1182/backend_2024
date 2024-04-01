@@ -24,3 +24,24 @@ socket.on("productos", (data) => {
 const eliminarProducto = (id) =>{
     socket.emit("eliminarProducto",id)
 }
+
+
+document.getElementById("btnEnviar").addEventListener("click",()=>{
+    agregarProductos();
+})
+
+const agregarProductos = () =>{
+    const producto ={
+        title: document.getElementById("title").value,
+        description: document.getElementById("description").value,
+        price: document.getElementById("price").value,
+        img: document.getElementById("img").value,
+        code: document.getElementById("code").value,
+        stock: document.getElementById("stock").value,
+        category: document.getElementById("category").value,
+        status: document.getElementById("status").value 
+        
+    };
+    socket.emit("agregarProductos",producto);
+
+}

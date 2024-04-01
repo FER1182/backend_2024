@@ -38,12 +38,18 @@ import ProductManager from "./controller/products-manager.js";
 const manager = new ProductManager("./src/models/productos.json");
 
 io.on("connection", async(socket)=>{
-    console.log("nuevo usuario conectado");
+    console.log("cliente online");
 
-    socket.on("message",data=>{
-        
-        messages.push(data)
-        io.emit("messagesLogs",messages);
+    socket.emit("productos",await manager.getProducts());
+    
+    socket.on("eliminarProducto",async(id)=>{
+        await manager.deletProduct(id);
+        socket.emit("productos",await manager.getProducts());
     })
 
+    socket.on("agregarProductos", async(producto)=>{
+        console.log(producto);
+        await manager.addProduct(producto);
+        socket.emit("productos",await manager.getProducts());
+    })   
 })
