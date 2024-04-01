@@ -1,17 +1,23 @@
 const socket = io()
 
-
+const formateador = new Intl.NumberFormat('es-ES');
 socket.on("productos", (data) => {
     const contenedorProductos = document.getElementById("contenedorProductos");
     contenedorProductos.innerHTML = "";
     data.forEach(item => {
         const card = document.createElement("div");
         card.innerHTML = `
-                            <p> Id: ${item.id}</p>
-                            <p> Titulo: ${item.title}</p>
-                            <p> Precio: ${item.price}</p>
-                            <button> Eliminar Producto </button>
-            `
+                            <div class="card" style="width: 18rem;">
+                                <img src="${item.img}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                     <p> Id: ${item.id}</p>
+                                     <h5 class="card-title">${item.title}</h5>
+                                     <p> Precio: $ ${formateador.format(item.price)}</p>   
+                                     <button> Eliminar Producto </button>
+                                </div>
+                            </div>
+                    
+                        `
         contenedorProductos.appendChild(card)
         card.querySelector("button").addEventListener("click", () => {
             eliminarProducto(item.id)
@@ -28,6 +34,7 @@ const eliminarProducto = (id) =>{
 
 document.getElementById("btnEnviar").addEventListener("click",()=>{
     agregarProductos();
+    
 })
 
 const agregarProductos = () =>{
@@ -42,6 +49,7 @@ const agregarProductos = () =>{
         status: document.getElementById("status").value 
         
     };
+    document.getElementById("formRealTime").reset();
     socket.emit("agregarProductos",producto);
 
 }

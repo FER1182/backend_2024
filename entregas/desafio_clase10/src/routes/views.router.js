@@ -7,10 +7,10 @@ const manager = new ProductManager("./src/models/productos.json");
 
 router.get("/", async (req, res) => {
     try {
-        
+
         const productos = await manager.getProducts();
-        res.render("home",{productos});
-        
+        res.render("home", { productos, titulo: "supermecado" });
+
     } catch (error) {
 
         console.error("Error al obtener productos", error);
@@ -21,11 +21,13 @@ router.get("/", async (req, res) => {
 })
 
 router.get("/realtimeproducts", (req, res) => {
-        
-        res.render("realTimeProducts");
-        
-   })
 
+    res.render("realTimeProducts", { titulo: "supermecado" });
+
+})
+router.get("/contacto", (req, res) => {
+    res.render("contacto")
+})
 export default router
 
 

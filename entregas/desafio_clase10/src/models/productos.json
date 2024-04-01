@@ -1,15 +1,5 @@
 [
   {
-    "id": 3,
-    "title": "mayonesa",
-    "description": "mayones light natura",
-    "code": "MAY5654",
-    "price": 3500,
-    "status": true,
-    "stock": 15,
-    "category": "almacen"
-  },
-  {
     "id": 4,
     "title": "ketchup",
     "description": "ketchup danica",
@@ -17,7 +7,8 @@
     "price": 1290,
     "status": true,
     "stock": 13,
-    "category": "almacen"
+    "category": "almacen",
+    "img": "https://acdn.mitiendanube.com/stores/861/458/products/328381-9a1000ac796b5ccf1515677069465394-640-0.jpg"
   },
   {
     "id": 5,
@@ -28,6 +19,72 @@
     "status": "true",
     "stock": "25",
     "category": "almacen",
-    "img": "dulce"
+    "img": "https://alberdisa.vteximg.com.br/arquivos/ids/174491-1000-1000/ddl-tradicional-400g.png?v=638151984958930000"
+  },
+  {
+    "id": 6,
+    "title": "Coca Cola",
+    "description": "Bebida Refresco",
+    "code": "coca10",
+    "price": "1500",
+    "status": "true",
+    "stock": "15",
+    "category": "Almacen",
+    "img": "https://media.f2h.shop/media/catalog/product/cache/ab45d104292f1bb63d093e6be8310c97/i/m/imageedit_3_4516158279.png"
+  },
+  {
+    "id": 7,
+    "title": "Seven Up",
+    "description": "Bebida Refresco",
+    "code": "seven1",
+    "price": "1400",
+    "status": "true",
+    "stock": "8",
+    "category": "Almacen",
+    "img": "https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/3080039_f.jpg"
+  },
+  {
+    "id": 8,
+    "title": "Fanta",
+    "description": "Bebida Refresco",
+    "code": "fanta1",
+    "price": "1330",
+    "status": "true",
+    "stock": "5",
+    "category": "Almacen",
+    "img": "https://acdn.mitiendanube.com/stores/001/144/141/products/whatsapp-image-2021-08-27-at-17-12-16-4ad73445aa7845684216301110875568-640-0.jpeg"
+  },
+  {
+    "id": 9,
+    "title": "Quilmes",
+    "description": "Cerveza",
+    "code": "quilmes1",
+    "price": "1600",
+    "status": "true",
+    "stock": "10",
+    "category": "Almacen",
+    "img": "https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/3100531_f.jpg"
+  },
+  {
+    "id": 10,
+    "title": "Helmans",
+    "description": "Mayonesa",
+    "code": "mayo1",
+    "price": "1100",
+    "status": "true",
+    "stock": "11",
+    "category": "Almacen",
+    "img": "https://carrefourar.vtexassets.com/arquivos/ids/380069/7794000006072_E02.jpg?v=638314418416170000"
+  },
+  {
+    "id": 11,
+    "title": "Lays",
+    "description": "Papas Fritas",
+    "code": "lays2",
+    "price": "1150",
+    "status": "true",
+    "stock": "4",
+    "category": "Almacen",
+    "img": "https://arcordiezb2c.vteximg.com.br/arquivos/ids/178959/Papas-Fritas-Clasicas-Lays-85-Gr-1-16970.jpg?v=638270301776400000"
   }
 ]
