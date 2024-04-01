@@ -86,5 +86,16 @@
     "stock": "4",
     "category": "Almacen",
     "img": "https://arcordiezb2c.vteximg.com.br/arquivos/ids/178959/Papas-Fritas-Clasicas-Lays-85-Gr-1-16970.jpg?v=638270301776400000"
+  },
+  {
+    "id": 12,
+    "title": "Off",
+    "description": "Repelente Mosquitos",
+    "code": "off01",
+    "price": "20000",
+    "status": "true",
+    "stock": "3",
+    "category": "Limpieza",
+    "img": "https://farmacityar.vtexassets.com/arquivos/ids/227201-800-auto?v=637967893067870000&width=800&height=auto&aspect=true"
   }
 ]
