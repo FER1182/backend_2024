@@ -36,6 +36,7 @@ router.post("/upload", async (req,res)=>{
 router.get("/image/:id/delete", async (req,res)=>{
     const {id} = req.params;
     const imagen =await ImagenModel.findByIdAndDelete(id);
+    
     await fs.unlink("./src/public"+ imagen.path);
     res.redirect("/")
 })
