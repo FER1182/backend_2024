@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
     nombre : {
-        type: String
+        type: String,
+        //index: true
     },
     apellido : String,
     email: {
@@ -12,9 +13,10 @@ const userSchema = new mongoose.Schema({
     },
     edad: {
         type : Number,
+        index : true
     }
 })
 
-const UserModel = mongoose.model("usuario",userSchema);
+const UserModel = mongoose.model("usuarios",userSchema);
 
 export default UserModel;
