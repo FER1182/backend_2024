@@ -5,6 +5,7 @@ import { Server } from "socket.io";
 import viewsRouter from "./routes/views.router.js"
 import productsRouter from "./routes/products.router.js"
 import cartsRouter from "./routes/carts.router.js"
+import MessageModel from "./models/message.model.js";
 import "./database.js"
 
 
@@ -32,22 +33,19 @@ const httpServer = app.listen(PUERTO,()=>{
 
 const io = new Server(httpServer);
 
-import ProductManager from "./controller/products-manager.js";
-const manager = new ProductManager("./src/models/productos.json");
 
-io.on("connection", async(socket)=>{
-    console.log("cliente online");
-
-    socket.emit("productos",await manager.getProducts());
+io.on("connection", (socket)=>{
+    console.log("nuevo usuario conectado")
     
-    socket.on("eliminarProducto",async(id)=>{
-        await manager.deletProduct(id);
-        socket.emit("productos",await manager.getProducts());
+    socket.on("message",async data=>{
+        await MessageModel.create(data)
+    
+     //obtengo los mensajes de mongo y los paso
+     const messages = await MessageModel.find();
+     console.log(messages)   
+     io.sockets.emit("message",messages)
+
     })
 
-    socket.on("agregarProductos", async(producto)=>{
-        console.log(producto);
-        await manager.addProduct(producto);
-        socket.emit("productos",await manager.getProducts());
-    })   
+    
 })

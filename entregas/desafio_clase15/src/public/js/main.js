@@ -1,55 +1,45 @@
+//console.log("siii funciona");
+//cramos una instancia del socket desde el laod del cliente
+
 const socket = io()
 
-const formateador = new Intl.NumberFormat('es-ES');
-socket.on("productos", (data) => {
-    const contenedorProductos = document.getElementById("contenedorProductos");
-    contenedorProductos.innerHTML = "";
-    data.forEach(item => {
-        const card = document.createElement("div");
-        card.innerHTML = `
-                            <div class="card" style="width: 18rem;">
-                                <img src="${item.img}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                     <p> Id: ${item.id}</p>
-                                     <h5 class="card-title">${item.title}</h5>
-                                     <p> Precio: $ ${formateador.format(item.price)}</p>   
-                                     <button> Eliminar Producto </button>
-                                </div>
-                            </div>
-                    
-                        `
-        contenedorProductos.appendChild(card)
-        card.querySelector("button").addEventListener("click", () => {
-            eliminarProducto(item.id)
-        })
 
+//cramos una variable para guardar el usuario
+let user;
+
+const chatBox = document.getElementById("chatBox");
+
+//usamos el swit alert para mensaje de bienvenida
+
+Swal.fire({
+    title: "identificate",
+    input: "text",
+    text: "ingresa un usuario para identificarte en el chat",
+    inputValidator: (value) => {
+        return !value && "necesitas escribir un nombre para continuar"
+    },
+    allowOutsideClick: false,
+}).then(result => {
+    user = result.value;
+})
+
+//envio de  mensajes
+chatBox.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+        if (chatBox.value.trim().length > 0) {
+            socket.emit("message", { user: user, message: chatBox.value })
+            console.log("emite mensaje");
+            chatBox.value ="";
+        }
+    }
+})
+
+socket.on("messagesLogs", data =>{
+    const log = document.getElementById("messagesLogs");
+    let messages = "";
+    data.forEach(message => {
+        messages = messages +`${message.user} dice ${message.message} <br>`
+       console.log(messages);
     })
-
+    log.innerHTML= messages
 })
-
-const eliminarProducto = (id) =>{
-    socket.emit("eliminarProducto",id)
-}
-
-
-document.getElementById("btnEnviar").addEventListener("click",()=>{
-    agregarProductos();
-    
-})
-
-const agregarProductos = () =>{
-    const producto ={
-        title: document.getElementById("title").value,
-        description: document.getElementById("description").value,
-        price: document.getElementById("price").value,
-        img: document.getElementById("img").value,
-        code: document.getElementById("code").value,
-        stock: document.getElementById("stock").value,
-        category: document.getElementById("category").value,
-        status: document.getElementById("status").value 
-        
-    };
-    document.getElementById("formRealTime").reset();
-    socket.emit("agregarProductos",producto);
-
-}

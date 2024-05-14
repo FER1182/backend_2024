@@ -20,9 +20,9 @@ router.get("/", async (req, res) => {
     }
 })
 
-router.get("/realtimeproducts", (req, res) => {
+router.get("/chat", (req, res) => {
 
-    res.render("realTimeProducts", { titulo: "supermecado" });
+    res.render("chat", { titulo: "CHAT" });
 
 })
 router.get("/contacto", (req, res) => {
