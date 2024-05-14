@@ -3,15 +3,15 @@ import express from "express";
 const router = express.Router()
 
 import CartManager from "../controller/carts-manager.js";
-const manager = new CartManager("./src/models/carts.json");
+const manager = new CartManager();
 
-router.get("/carts/:cid", async (req, res) => {
+router.get("/:cid", async (req, res) => {
 
     const id = req.params.cid;
 
     try {
 
-        const carrito = await manager.getCartById(parseInt(id));
+        const carrito = await manager.getCartById(id);
         if (!carrito) {
             return res.json({
                 error: "Carrito no encontrado"
@@ -27,7 +27,7 @@ router.get("/carts/:cid", async (req, res) => {
     }
 })
 
-router.post("/carts", async (req, res) => {
+router.post("/", async (req, res) => {
     const nuevoProducto = req.body;
     try {
 
@@ -44,19 +44,21 @@ router.post("/carts", async (req, res) => {
 
 })
 
-router.post("/carts/:cid/product/:pid", async (req, res) => {
-    const idCart = parseInt(req.params.cid);
-    const idProduct = parseInt(req.params.pid);
-    const cantProdAgregado = req.body.cantidad;
+//agrega productos al carrito
+
+router.post("/:cid/product/:pid", async (req, res) => {
+    const idCart = req.params.cid;
+    const idProduct = req.params.pid;
+    const cantProdAgregado = req.body.quantity;
     try {
 
-        const cartNew = await manager.updateCart(idCart, idProduct, cantProdAgregado);
-        if (!cartNew) {
+        const actualizarCarrito = await manager.updateCart(idCart, idProduct, cantProdAgregado);
+        if (!actualizarCarrito) {
             return res.json({
                 error: "Carrito no encontrado"
             });
         }
-        res.send({ message: "producto actualizado con exito" })
+        res.json(actualizarCarrito.products)
         
 
     } catch (error) {

@@ -2,7 +2,7 @@ import express from "express";
 
 const router = express.Router()
 import ProductManager from "../controller/products-manager.js";
-const manager = new ProductManager("./src/models/productos.json");
+const manager = new ProductManager();
 
 router.get("/", async (req, res) => {
     try {
@@ -29,7 +29,7 @@ router.get("/:pid", async (req, res) => {
 
     try {
 
-        const producto = await manager.getProductById(parseInt(id));
+        const producto = await manager.getProductById(id);
         if (!producto) {
             return res.json({
                 error: "Producto no encontrado"
@@ -63,7 +63,7 @@ router.post("/", async(req, res) => {
 })
 
 router.put("/:pid", async(req, res) => {
-    const id = parseInt(req.params.pid);
+    const id = req.params.pid;
     const productoActual = req.body;
     try {
 
@@ -81,7 +81,7 @@ router.put("/:pid", async(req, res) => {
 })
 
 router.delete("/:pid", async(req, res) => {
-    const id = parseInt(req.params.pid);
+    const id = req.params.pid;
     try {
 
         const producto = await manager.deletProduct(id);

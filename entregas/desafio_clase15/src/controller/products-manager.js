@@ -2,10 +2,9 @@ import { promises as fs } from "fs";
 import ProductModel from "../models/product.model.js";
 
 class ProductManager {
-  async addProduct(objetoProduct) {
+  async addProduct({ title, description, price, img, code, stock, category, status }) {
     try {
-      let { title, description, price, img, code, stock, category, status } =
-        objetoProduct;
+
 
       // Validar que ninguna propiedad esté vacía
       if (
@@ -23,7 +22,7 @@ class ProductManager {
 
       // Validar que no exista un producto con el mismo code
       const existeProducto = await ProductModel.findOne({ code: code });
-      if (!existeProducto) {
+      if (existeProducto) {
         console.log("el codigo ya existe");
         return;
       }
@@ -40,8 +39,9 @@ class ProductManager {
       });
 
       await nuevoProducto.save();
-    } catch(error) {
-          console.log("error al agregar producto",error)  
+    } catch (error) {
+      console.log("error al agregar producto", error)
+      throw error
     }
   }
 
