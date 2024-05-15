@@ -42,8 +42,8 @@ io.on("connection", (socket)=>{
     
      //obtengo los mensajes de mongo y los paso
      const messages = await MessageModel.find();
-     console.log(messages)   
-     io.sockets.emit("message",messages)
+      
+     io.sockets.emit("messagesLogs",messages)
 
     })
 
