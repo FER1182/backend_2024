@@ -16,7 +16,7 @@ app.set("views","./src/views")
 app.get("/pizzas", async (req,res)=>{
     try {
         
-        let page = req.query.page //falta poner el or ;
+        let page = req.query.page || 1 ;
         let limit = 2;
 
         const pizzas = await OrderModel.paginate({},{limit, page})
@@ -34,7 +34,7 @@ app.get("/pizzas", async (req,res)=>{
             prevPage : pizzas.prevPage,
             nextPage : pizzas.nextPage,
             currentPage : pizzas.page,
-            totalPAges : pizzas.totalPAges    
+            totalPages : pizzas.totalPages    
         })
 
     } catch (error) {
