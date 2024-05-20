@@ -4,15 +4,29 @@ const router = express.Router()
 import ProductManager from "../controller/products-manager.js";
 const manager = new ProductManager();
 
-router.get("/", async (req, res) => {
+router.get("/:limit", async (req, res) => {
     try {
-        const limit = req.query.limit;
-        const productos = await manager.getProducts();
-        if (limit) {
-            res.json(productos.slice(0, limit));
-        } else {
-            res.json(productos);
-        }
+        const {limit = 10, page = 1, sort, query }= req.query;
+        const productos = await manager.getProducts({
+            limit : parseInt(limit),
+            pague: parseInt(page),
+            sort,
+            query
+        });
+        
+            res.json({
+                status : "success", 
+                payload: productos,
+                totalPages: productos.totalPages,
+                prevPage : productos.prevPage,
+                nextPage : productos.nextPage,
+                page : productos.page,
+                hasPrevPage: productos.hasPrevPage,
+                hasNextPage: productos.hasNextPage,
+                prevLink : productos.hasPrevPage ? `/api/products?limit=${limit}&page=${productos.prevPage}&sort=${sort}&query=${query}` : null,
+                nextLink : productos.hasNextPage ? `/api/products?limit=${limit}&page=${productos.nextPage}&sort=${sort}&query=${query}` : null,
+            })
+       
     } catch (error) {
 
         console.error("Error al obtener productos", error);
