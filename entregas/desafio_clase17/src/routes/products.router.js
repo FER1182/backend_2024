@@ -4,12 +4,12 @@ const router = express.Router()
 import ProductManager from "../controller/products-manager.js";
 const manager = new ProductManager();
 
-router.get("/:limit", async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         const {limit = 10, page = 1, sort, query }= req.query;
         const productos = await manager.getProducts({
             limit : parseInt(limit),
-            pague: parseInt(page),
+            page: parseInt(page),
             sort,
             query
         });

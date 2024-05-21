@@ -1,5 +1,6 @@
 import { promises as fs } from "fs";
 import ProductModel from "../models/product.model.js";
+import mongoosePaginate from "mongoose-paginate-v2";
 
 class ProductManager {
   async addProduct({ title, description, price, img, code, stock, category, status }) {
@@ -45,10 +46,14 @@ class ProductManager {
     }
   }
 
-  async getProducts() {
+  async getProducts({limit, page,sort,query}) {
     try {
-      const nuevoArray = await ProductModel.find().lean();
-      return nuevoArray;
+      
+       const productoFinal = await ProductModel.paginate({},{limit, page,sort,query})
+       
+      
+      //   console.log(productoFinal);
+      return productoFinal;
     } catch (error) {
       console.log("Error al leer el archivo", error);
     }

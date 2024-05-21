@@ -8,8 +8,19 @@ const manager = new ProductManager("./src/models/productos.json");
 router.get("/", async (req, res) => {
     try {
 
-        const productos = await manager.getProducts();
-        res.render("home", { productos, titulo: "supermecado" });
+        const {limit = 10, page = 1, sort, query }= req.query;
+        const productos = await manager.getProducts({
+            limit : parseInt(limit),
+            page: parseInt(page),
+            sort,
+            query
+        });
+           const productoFinal = productos.docs.map(producto=>{
+            const {_id, ...rest} = producto.toObject();
+            console.log(rest); 
+            return rest;
+         })
+        res.render("home", { productoFinal, titulo: "supermecado" });
 
     } catch (error) {
 
