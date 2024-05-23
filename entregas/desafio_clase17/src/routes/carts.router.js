@@ -70,7 +70,7 @@ router.post("/:cid/product/:pid", async (req, res) => {
 
 
 })
-
+//eliminamos un producto del carrito
 router.delete("/:cid/product/:pid", async(req, res) => {
     const idCart = req.params.cid;
     const idProduct = req.params.pid;
@@ -89,5 +89,26 @@ router.delete("/:cid/product/:pid", async(req, res) => {
     
 })
 
+//actualizamos el carrito
+router.put("/:cid", async(req, res) => {
+    const idCart = req.params.cid;
+    const products = req.body
+    console.log(products)
+    // if (!Array.isArray( products )) {
+    //     return res.status(400).json({message: "no se recibio ningun array de productos"});
+    //   }
+    try {
+        const producto = await manager.actualizarCarrito(idCart,{products});
+      
+        res.send({message:"carrito actualizado con exito"})
+    } catch (error) {
+        console.error("Error al actualizar el carrito", error);
+        res.status(500).json({
+            error: "Error interno del servidor"
+        });
+    }
+    
+    
+})
 
 export default router
