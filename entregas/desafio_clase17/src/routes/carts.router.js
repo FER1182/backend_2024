@@ -71,7 +71,23 @@ router.post("/:cid/product/:pid", async (req, res) => {
 
 })
 
+router.delete("/:cid/product/:pid", async(req, res) => {
+    const idCart = req.params.cid;
+    const idProduct = req.params.pid;
+    try {
 
+        const producto = await manager.deleteProductCart(idCart,idProduct);
+      
+        res.send({message:"producto eliminado con exito del carrito"})
+    } catch (error) {
+        console.error("Error al eliminar producto del carrito", error);
+        res.status(500).json({
+            error: "Error interno del servidor"
+        });
+    }
+    
+    
+})
 
 
 export default router

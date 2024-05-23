@@ -49,6 +49,7 @@ class CartManager {
         try {
             const cart = await this.getCartById(idCart);
             const existeProducto = cart.products.find(item =>item.product.toString()=== idProduct)
+            
         if(existeProducto){
             existeProducto.quantity += quantity;
         } else {
@@ -66,6 +67,30 @@ class CartManager {
         }
     }
 
+
+    // Actualizamos algun producto:
+    async deleteProductCart(idCart, idProduct,) {
+        try {
+            const cart = await this.getCartById(idCart);
+            const deletProduct = cart.products.filter(item =>item.product.toString()!== idProduct);
+            console.log(deletProduct);
+            if (!deletProduct) {
+              console.error(`Error: Producto con id ${id} no encontrado en el carrito.`);
+              return null;
+            } else {
+              console.log("producto eliminado del carrito");
+              return deletProduct;
+            }
+            
+        cart.markModified("products")
+        await cart.save();    
+        return cart;
+           
+            
+        } catch (error) {
+            console.log("Error al actualizar el carrito", error);
+        }
+    }
 
 }
 
