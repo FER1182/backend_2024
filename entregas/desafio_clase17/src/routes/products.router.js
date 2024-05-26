@@ -6,7 +6,10 @@ const manager = new ProductManager();
 
 router.get("/", async (req, res) => {
     try {
-        const {limit = 10, page = 1, sort, query }= req.query;
+        let page = req.query.page || 1 ;
+        let limit = req.query.limit || 10 ;
+
+        const {sort, query }= req.query;
         const productos = await manager.getProducts({
             limit : parseInt(limit),
             page: parseInt(page),
@@ -18,7 +21,18 @@ router.get("/", async (req, res) => {
             console.log(rest); 
             return rest;
          })
-         res.render("home", { productoFinal, titulo: "supermecado" });
+         console.log(productos)
+         res.render("home", { 
+            productoFinal : productoFinal,
+            hasPrevPage : productos.hasPrevPage,
+            hasNextPage : productos.hasNextPage,
+            prevPage : productos.prevPage,
+            nextPage : productos.nextPage,
+            currentPage : productos.page,
+            totalPages : productos.totalPages,
+            limit : limit,
+            titulo: "supermecado" 
+        });
        
     } catch (error) {
 

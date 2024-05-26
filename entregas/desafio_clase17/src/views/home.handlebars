@@ -2,8 +2,8 @@
 <div class="card-group">
 {{#each productoFinal}}
 <div>
-    <div class="card" style="width: 18rem;">
-        <img src="{{this.img}}" class="card-img-top" alt="...">
+    <div class="card" style="width: 10rem;">
+        <img src={{this.img}} class="card-img-top" alt="...">
         <div class="card-body">
              <h5 class="card-title">{{this.title}}</h5>
             <p>descripcion {{this.description}}</p>
@@ -14,4 +14,15 @@
     </div>
 </div>
 {{/each}}
+
+
 </div>
+{{#if hasPrevPage}}
+    <a href="/api/products?limit={{limit}}&page={{prevPage}}"> Anterior </a>
+{{/if}}
+
+{{#if hasNextPage}}
+    <a href="/api/products?limit={{limit}}&page={{nextPage}}"> Siguiente </a>
+{{/if}}
+
+<p> pagina {{currentPage}} de {{totalPages}}</p>
