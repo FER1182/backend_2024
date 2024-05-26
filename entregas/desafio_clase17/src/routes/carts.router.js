@@ -52,7 +52,7 @@ router.post("/:cid/product/:pid", async (req, res) => {
     const cantProdAgregado = req.body.quantity;
     try {
 
-        const actualizarCarrito = await manager.updateCart(idCart, idProduct, cantProdAgregado);
+        const actualizarCarrito = await manager.updateCartYagrega(idCart, idProduct, cantProdAgregado);
         if (!actualizarCarrito) {
             return res.json({
                 error: "Carrito no encontrado"
@@ -101,6 +101,51 @@ router.put("/:cid", async(req, res) => {
         const producto = await manager.actualizarCarrito(idCart,{products});
       
         res.send({message:"carrito actualizado con exito"})
+    } catch (error) {
+        console.error("Error al actualizar el carrito", error);
+        res.status(500).json({
+            error: "Error interno del servidor"
+        });
+    }
+    
+    
+})
+
+//actualizamos cantidad de un producto del carrito
+router.put("/:cid/products/:pid", async (req, res) => {
+    const idCart = req.params.cid;
+    const idProduct = req.params.pid;
+    const cantProdAgregado = req.body.quantity;
+    try {
+
+        const actualizarCarrito = await manager.updateCartYagrega(idCart, idProduct, cantProdAgregado);
+        if (!actualizarCarrito) {
+            return res.json({
+                error: "Carrito no encontrado"
+            });
+        }
+        res.json(actualizarCarrito.products)
+        
+
+    } catch (error) {
+        console.error("Error al guardar el producto", error);
+        res.status(500).json({
+            error: "Error interno del servidor"
+        });
+    }
+
+
+})
+
+//vaciamso el carrito el carrito
+router.delete("/:cid", async(req, res) => {
+    const idCart = req.params.cid;
+    const products = []
+  
+    try {
+        const producto = await manager.actualizarCarrito(idCart,{products});
+      
+        res.send({message:"se vacio el carrito"})
     } catch (error) {
         console.error("Error al actualizar el carrito", error);
         res.status(500).json({

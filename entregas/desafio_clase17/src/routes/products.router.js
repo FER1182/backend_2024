@@ -13,19 +13,12 @@ router.get("/", async (req, res) => {
             sort,
             query
         });
-        
-            res.json({
-                status : "success", 
-                payload: productos,
-                totalPages: productos.totalPages,
-                prevPage : productos.prevPage,
-                nextPage : productos.nextPage,
-                page : productos.page,
-                hasPrevPage: productos.hasPrevPage,
-                hasNextPage: productos.hasNextPage,
-                prevLink : productos.hasPrevPage ? `/api/products?limit=${limit}&page=${productos.prevPage}&sort=${sort}&query=${query}` : null,
-                nextLink : productos.hasNextPage ? `/api/products?limit=${limit}&page=${productos.nextPage}&sort=${sort}&query=${query}` : null,
-            })
+        const productoFinal = productos.docs.map(producto=>{
+            const {_id, ...rest} = producto.toObject();
+            console.log(rest); 
+            return rest;
+         })
+         res.render("home", { productoFinal, titulo: "supermecado" });
        
     } catch (error) {
 
