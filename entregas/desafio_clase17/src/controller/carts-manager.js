@@ -26,8 +26,8 @@ class CartManager {
   //lista productos que pertenezcan al carrito
   async getCartById(id) {
     try {
-      const cart = await CartModel.findById(id).populate('products.product');
-      console.log(cart)
+      const cart = await CartModel.findById(id).populate("products.product");
+      console.log(cart);
       if (!cart) {
         console.error(`Error: Carrito con id ${id} no encontrado.`);
       } else {
@@ -42,8 +42,9 @@ class CartManager {
   async updateCartYagrega(idCart, idProduct, quantity = 1) {
     try {
       const cart = await this.getCartById(idCart);
+      console.log(idProduct);
       const existeProducto = cart.products.find(
-        (item) => item.product.toString() === idProduct
+        (item) => item.product._id.toString() === idProduct
       );
 
       if (existeProducto) {
@@ -93,9 +94,9 @@ class CartManager {
       if (!cart) {
         return res.status(404).json({ message: "Carrito no encontrado" });
       }
-     
-    cart.products = products
-     console.log("se logro actualizar todo el carrito con exito") 
+
+      cart.products = products;
+      console.log("se logro actualizar todo el carrito con exito");
       await cart.save();
       return cart;
     } catch (error) {
@@ -112,19 +113,19 @@ class CartManager {
 
       if (existeProducto) {
         existeProducto.quantity += quantity;
-     
-      cart.markModified("products");
-      await cart.save();
-      return cart;
-    } else {
-      return res.status(404).json({ message: "Producto no encontrado en el carrito" });
-    }
 
+        cart.markModified("products");
+        await cart.save();
+        return cart;
+      } else {
+        return res
+          .status(404)
+          .json({ message: "Producto no encontrado en el carrito" });
+      }
     } catch (error) {
       console.log("Error al actualizar el producto", error);
     }
   }
-
 }
 
 export default CartManager;

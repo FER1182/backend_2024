@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
     try {
         let page = req.query.page || 1 ;
         let limit = req.query.limit || 10 ;
-
+        
         const {sort, query }= req.query;
         const productos = await manager.getProducts({
             limit : parseInt(limit),
@@ -18,8 +18,9 @@ router.get("/", async (req, res) => {
         });
         const productoFinal = productos.docs.map(producto=>{
             const {_id, ...rest} = producto.toObject();
-            const todo = {_id,rest}
-            console.log(todo); 
+            const idCarrito = "66538ca67cb76c114de5def8"
+            const todo = {_id,rest,idCarrito}
+            
             return todo;
          })
          
@@ -57,8 +58,12 @@ router.get("/:pid", async (req, res) => {
                 error: "Producto no encontrado"
             });
         }
-
-        res.json(producto);
+        
+        res.render("product", { 
+            productoFinal : producto,
+            idCarrito : "66538ca67cb76c114de5def8",
+            titulo: "supermecado" 
+        });
     } catch (error) {
         console.error("Error al obtener producto", error);
         res.status(500).json({

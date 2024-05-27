@@ -118,7 +118,7 @@ router.put("/:cid/products/:pid", async (req, res) => {
     const cantProdAgregado = req.body.quantity;
     try {
 
-        const actualizarCarrito = await manager.updateCartYagrega(idCart, idProduct, cantProdAgregado);
+        const actualizarCarrito = await manager.updateCart(idCart, idProduct, cantProdAgregado);
         if (!actualizarCarrito) {
             return res.json({
                 error: "Carrito no encontrado"
