@@ -18,10 +18,11 @@ router.get("/", async (req, res) => {
         });
         const productoFinal = productos.docs.map(producto=>{
             const {_id, ...rest} = producto.toObject();
-            console.log(rest); 
-            return rest;
+            const todo = {_id,rest}
+            console.log(todo); 
+            return todo;
          })
-         console.log(productos)
+         
          res.render("home", { 
             productoFinal : productoFinal,
             hasPrevPage : productos.hasPrevPage,

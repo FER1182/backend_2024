@@ -3,13 +3,13 @@
 {{#each productoFinal}}
 <div>
     <div class="card" style="width: 10rem;">
-        <img src={{this.img}} class="card-img-top" alt="...">
+        <img src={{this.rest.img}} class="card-img-top" alt="...">
         <div class="card-body">
-             <h5 class="card-title">{{this.title}}</h5>
-            <p>descripcion {{this.description}}</p>
-            <p>precio : $ {{this.price}}</p>
-            <p>categoria : {{this.category}}</p>
-            <a href="/products/<%= product._id %>">
+             <h5 class="card-title">{{this.rest.title}}</h5>
+            <p>descripcion {{this.rest.description}}</p>
+            <p>precio : $ {{this.rest.price}}</p>
+            <p>categoria : {{this.rest.category}}</p>
+           <a href="/products/{{this._id}}">
                  <button>Ver detalles</button>
             </a>
             <button> compra </button>
