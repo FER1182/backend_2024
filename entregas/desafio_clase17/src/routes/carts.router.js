@@ -17,8 +17,17 @@ router.get("/:cid", async (req, res) => {
                 error: "Carrito no encontrado"
             });
         }
+        const carritoFinal = carrito.products.map(carrito=>{
+            const {_id, ...rest} = carrito.toObject();
+            return rest;
+         })
+         
+         res.render("cart", { 
+            carritoFinal : carritoFinal,
+            titulo: "supermecado" 
+        });
 
-        res.json(carrito);
+        
     } catch (error) {
         console.error("Error al obtener producto", error);
         res.status(500).json({
