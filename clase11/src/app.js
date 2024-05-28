@@ -45,7 +45,7 @@ let messages =[];
 io.on("connection",()=>{
     console.log("nuevo usuario conectado");
 
-    io.on("message",data=>{
+    io.on("message", data =>{
         console.log(data);
         messages.push(data)
         io.emit("messagesLogs",messages);
