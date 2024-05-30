@@ -1,0 +1,33 @@
+<h1>Productos</h1>
+<div class="card-group">
+    {{#each productoFinal}}
+    <div>
+        <div class="card" style="width: 10rem;">
+            <img src={{this.rest.img}} class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{this.rest.title}}</h5>
+                <p>descripcion {{this.rest.description}}</p>
+                <p>precio : $ {{this.rest.price}}</p>
+                <p>categoria : {{this.rest.category}}</p>
+                <a href="/api/products/{{this._id}}">
+                    <button>Ver detalles</button>
+                </a>
+                <form action="/api/carts/{{this.idCarrito}}/product/{{this._id}}" method="post">
+                    <button type="submit" class="add-to-cart">agregar al Carrito</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+
+
+</div>
+{{#if hasPrevPage}}
+<a href="/api/products?limit={{limit}}&page={{prevPage}}"> Anterior </a>
+{{/if}}
+
+{{#if hasNextPage}}
+<a href="/api/products?limit={{limit}}&page={{nextPage}}"> Siguiente </a>
+{{/if}}
+
+<p> pagina {{currentPage}} de {{totalPages}}</p>
