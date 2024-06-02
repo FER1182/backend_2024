@@ -33,7 +33,8 @@ router.get("/", async (req, res) => {
             currentPage : productos.page,
             totalPages : productos.totalPages,
             limit : limit,
-            titulo: "supermecado" 
+            titulo: "supermecado" ,
+            user : req.session.user
         });
        
     } catch (error) {
