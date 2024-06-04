@@ -5,7 +5,9 @@ import MongoStore from "connect-mongo";
 import viewsRouter from "./routes/views.router.js";
 import usersRouter from "./routes/user.router.js";
 import sessionsRouter from "./routes/session.router.js";
+import initializePassport from "./config/passport.config.js"
 import "./database.js";
+import passport from "passport";
 
 const app = express(); 
 const PUERTO = 8080; 
@@ -24,9 +26,13 @@ app.use(session({
     resave: true,
     saveUninitialized : true, 
     store: MongoStore.create({
-        mongoUrl: "mongodb+srv://coderhouse53130:coderhouse@cluster0.ilnzaje.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0", ttl: 100
+        mongoUrl: "mongodb+srv://fernandorudnevichinedita:231182@cluster0.xe7glky.mongodb.net/E-commerce?retryWrites=true&w=majority&appName=Cluster0", ttl: 100
     })
 }))
+
+app.use(passport.initialize())
+app.use(passport.session());
+initializePassport();
 
 //Rutas:
 
