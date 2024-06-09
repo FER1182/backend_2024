@@ -14,7 +14,7 @@ class Router{
     //init(){}
 
     get(path,...callbacks){
-        this.router.get(path, this.applyCallbacks(callbacks))
+        this.router.get(path, this.generateCustomResponse,this.applyCallbacks(callbacks))
     }    
 
     applyCallbacks(callbacks){
@@ -28,6 +28,13 @@ class Router{
         })
     }
 
+    //custom response
+    generateCustomResponse(req,res,next){
+        res.sendSucces = payload => res.send({status:"success",payload})
+        res.sendServerError = error => res.status(500).send({status:"error",error})
+        res.sendUserError = error => res.status(400).send({status :"error",error})
+        next();
+    }
 
 
 }

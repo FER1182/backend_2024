@@ -4,7 +4,9 @@ class UserRouter extends Router{
     init(){
         //aca colocamos todas nuestras rutas
         this.get("/",(req,res)=>{
-            res.send("get usuarios")
+            //res.send("get usuarios")
+            //res.sendSucces("hola estaas en el success en el payload")
+            res.sendServerError("error en el seridor con sendservererror")
         })
 
         // this.post("/",(req,res)=>{
