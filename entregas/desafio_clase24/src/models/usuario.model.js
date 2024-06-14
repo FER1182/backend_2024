@@ -23,6 +23,10 @@ const schema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  carts:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "carts"
+  },
   role: {
     type: String,
     enum: ["admin", "usuario"],

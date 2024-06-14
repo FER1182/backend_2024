@@ -9,3 +9,8 @@ h2{
 .product {
     margin: 20px;
 }
+.card-img-top {
+    object-fit: cover;
+    height: 200px;
+    
+} 

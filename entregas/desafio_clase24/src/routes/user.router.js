@@ -1,11 +1,13 @@
 import express from "express"
-
 const router = express.Router()
 
 import UsuarioModel from "../models/usuario.model.js"
 import { createHash } from "../utils/hashbcrypt.js"
+import jwt from "jsonwebtoken";
+import passport from "passport";
 
 //ruta Post para generar un usuario y almacenarlo en mongodb
+
 
 router.post("/", async(req,res)=>{
     const {first_name, last_name , email , password , age} = req.body
