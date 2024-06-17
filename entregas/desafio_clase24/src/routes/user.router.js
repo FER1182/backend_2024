@@ -33,13 +33,29 @@ router.post("/", async(req,res)=>{
             role
         })
        
+        const token = jwt.sign({
+            usuario:nuevoUsuario.email,
+            first_name: nuevoUsuario.first_name,
+            last_name: nuevoUsuario.last_name,
+            role : nuevoUsuario.role
+          },"coderhouse",{expiresIn:"1h"})
+        
+        res.cookie("coderCookieToken",token,{
+            maxAge: 3600000,
+            httpOnly : true
+        })
+
+        //*********CON SESSIONS *******/
+        //*****************************/    
         //una vez creado el usuario , creo la sesion
-        req.session.user = {
-            email : nuevoUsuario.email,
-            first_name : nuevoUsuario.first_name,
-            last_name: nuevoUsuario.last_name
-        };
-        req.session.login = true;
+        //  req.session.user = {
+        //      email : nuevoUsuario.email,
+        //      first_name : nuevoUsuario.first_name,
+        //      last_name: nuevoUsuario.last_name
+        //  };
+        //  req.session.login = true;
+       
+       
         res.redirect("/api/products")
 
     } catch (error) {

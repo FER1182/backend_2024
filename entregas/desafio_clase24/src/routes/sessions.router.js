@@ -1,7 +1,10 @@
-import expres from "express";
-const router = expres.Router();
+import express from "express";
+const router = express.Router();
 import UsuarioModel from "../models/usuario.model.js";
 import { isValidPassword } from "../utils/hashbcrypt.js";
+import passport from "passport";
+
+import jwt from "jsonwebtoken";
 
 //login
 
@@ -10,18 +13,36 @@ router.post("/login", async (req, res) => {
 
   try {
     const usuario = await UsuarioModel.findOne({ email: email });
+   
     if (usuario) {
        
       //if (usuario.password === password) {
        if(isValidPassword(password,usuario)){
-        req.session.login = true;
-        req.session.user = {
-          email: usuario.email,
+        
+        //*********CON SESSIONS *******/
+        //*****************************/
+        // req.session.login = true;
+        // req.session.user = {
+        //   email: usuario.email,
+        //   first_name: usuario.first_name,
+        //   last_name: usuario.last_name,
+        //   role : usuario.role
+        // };
+       
+        const token = jwt.sign({
+          usuario:usuario.email,
           first_name: usuario.first_name,
           last_name: usuario.last_name,
           role : usuario.role
-        };
+        },"coderhouse",{expiresIn:"1h"})
         
+        res.cookie("coderCookieToken",token,{
+            maxAge: 3600000,
+            httpOnly : true
+        })
+
+
+
         res.redirect("/api/products");
       } else {
         res.status(401).send("contraseña no valida");
@@ -37,10 +58,9 @@ router.post("/login", async (req, res) => {
 //logout
 
 router.get("/logout",(req,res)=>{
-    if(req.session.login){
-        req.session.destroy()
-    }
-    res.redirect("/login")
+      
+      res.clearCookie("coderCookieToken")
+      res.redirect("/login")
 })
 
 export default router;

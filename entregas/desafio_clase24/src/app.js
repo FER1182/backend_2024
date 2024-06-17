@@ -30,14 +30,14 @@ app.use(passport.initialize());
 initializePassport();   
 
 
-app.use(session({
-    secret : "secretCoder",
-    resave : true ,
-    saveUninitialized : true,
-    store : MongoStore.create({
-        mongoUrl : "mongodb+srv://fernandorudnevichinedita:231182@cluster0.xe7glky.mongodb.net/E-commerce?retryWrites=true&w=majority&appName=Cluster0" , ttl :100
-    })
-}))
+ app.use(session({
+     secret : "secretCoder",
+     resave : true ,
+     saveUninitialized : true,
+     store : MongoStore.create({
+         mongoUrl : "mongodb+srv://fernandorudnevichinedita:231182@cluster0.xe7glky.mongodb.net/E-commerce?retryWrites=true&w=majority&appName=Cluster0" , ttl :100
+     })
+ }))
 
 //configuracion handlebars
 app.engine("handlebars",exphbs.engine());
