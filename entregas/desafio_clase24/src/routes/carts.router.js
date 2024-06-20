@@ -37,11 +37,11 @@ router.get("/:cid", async (req, res) => {
 })
 
 router.post("/", async (req, res) => {
-    const nuevoProducto = req.body;
+    
     try {
 
         const producto = await manager.addCart();
-
+        console.log(producto._id)
         res.send({ message: "carrito agregado" })
     } catch (error) {
         console.error("Error al guardar el producto", error);

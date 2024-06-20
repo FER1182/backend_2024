@@ -1,6 +1,7 @@
 import express from "express";
 const router = express.Router();
-
+import CartManager from "../controller/carts-manager.js";
+const manager = new CartManager();
 import UsuarioModel from "../models/usuario.model.js";
 import { createHash } from "../utils/hashbcrypt.js";
 import jwt from "jsonwebtoken";
@@ -18,8 +19,10 @@ router.post("/", async (req, res) => {
       return res.status(400).send("el correo ya esta registrado");
     }
 
-    //definimos el rol del usuario
 
+    //definimos el rol del usuario
+    const creaCarrito = await manager.addCart();
+    
     const role = email === "admincoder@coder.com" ? "admin" : "usuario";
     //creacion de nuevo usuario
     const nuevoUsuario = await UsuarioModel.create({
@@ -28,6 +31,7 @@ router.post("/", async (req, res) => {
       email,
       password: createHash(password),
       age,
+      carts:creaCarrito._id,
       role,
     });
 

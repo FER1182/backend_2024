@@ -5,7 +5,7 @@ import ProductManager from "../controller/products-manager.js";
 import passport from "passport";
 const manager = new ProductManager();
 
-router.get("/",passport.authenticate("jwt",{session :false}), async (req, res) => {
+router.get("/",passport.authenticate("jwt", {session :false}), async (req, res) => {
     try {
         let page = req.query.page || 1 ;
         let limit = req.query.limit || 10 ;
