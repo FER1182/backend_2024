@@ -15,3 +15,5 @@ program.parse();
 
 console.log("opciones",program.opts());
 //node src/utils/commander.js con este comando me aparece lo q le pase
+
+export default program

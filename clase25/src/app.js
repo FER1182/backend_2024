@@ -24,9 +24,25 @@ import express from "express"
 import UserModel from "./models/usuarios.model.js";
 const app = express();
 import mongoose from "mongoose";
+import configObjet from "./config/config.js";
+const {mongo_url,puerto}=configObjet
 
-app.get("/",(req,res)=>{
-    res.send("olisss")
+
+app.get("/",async(req,res)=>{
+    try {
+        const usuarios = await UserModel.find()
+        res.send(usuarios)
+
+
+    } catch (error) {
+        res.status(500).send("error del servidor")
+    }
 })
 
-app.listen(8080)
+app.listen(puerto)
+
+//nos conectamos con mongdodb
+
+mongoose.connect(mongo_url)
+    .then (()=>console.log("conectado a la bd"))
+    .catch(()=> console.log("error coneccion a db"))
