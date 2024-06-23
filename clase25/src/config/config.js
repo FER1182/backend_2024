@@ -12,5 +12,5 @@ const configObjet = {
     puerto : process.env.PUERTO,
     mongo_url : process.env.MONGO_URL
 }
-
+console.log(configObjet.puerto)
 export default configObjet;

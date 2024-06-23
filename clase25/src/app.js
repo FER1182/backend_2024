@@ -46,3 +46,30 @@ app.listen(puerto)
 mongoose.connect(mongo_url)
     .then (()=>console.log("conectado a la bd"))
     .catch(()=> console.log("error coneccion a db"))
+
+
+    //procesos hijos child
+    
+    // app.get("/suma",(req,res)=>{
+    //     const resultado = operacionCompleja();
+    //     res.send(`el resultado de la oepracion compleja es ${resultado}`);
+
+    // })
+
+    //pasos para realizar el forkeo y que la operacion compleja no frene el servidor
+    //separamos la funcion compleja a otro modulo y ahi uso procees.on y .send
+    //eso es modificamos la funcion y la dejamos disponible para cuando el padre solicite
+
+import {fork} from "child_process";//no hace falta instalar nada
+
+app.get("/suma",(req,res)=>{
+    const child = fork("./src/operacionCompleja");
+    child.send("iniciando"); //aca el proceso padre le manda mensaje al hijo
+    child.on("message",resultado=>{
+        res.send(`el resultado de la operacion es : ${resultado}`)
+    })
+})
+
+
+
+

@@ -13,7 +13,8 @@ program
     .option("--mode <mode>","modo de trabajo","produccion")
 program.parse();    
 
-console.log("opciones",program.opts());
+//console.log("opciones",program.opts());
+
 //node src/utils/commander.js con este comando me aparece lo q le pase
 
 export default program
