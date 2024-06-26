@@ -1,4 +1,4 @@
-import ProductoModel from "./models./producto.model.js"
+import ProductoModel from "../models/productos.model.js"
 import respuesta from "../utils/reutilizables.js"
 
 class ProductoController{
