@@ -12,8 +12,9 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    
     const usuario = await UsuarioModel.findOne({ email: email });
-
+      
     if (usuario) {
       //if (usuario.password === password) {
       if (isValidPassword(password, usuario)) {
