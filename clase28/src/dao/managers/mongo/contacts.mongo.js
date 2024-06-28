@@ -1,4 +1,4 @@
-import { contactsModel } from "../../models/contacts.model";
+import { contactsModel } from "../../models/contacts.model.js";
 
 export class ContactsMongo{
     constructor(){

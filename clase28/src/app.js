@@ -3,6 +3,9 @@ const app= express()
 const PORT = 8080
 
 import conctactRouter from "./routes/contacts.router.js"
+import { connectDB } from "./config/dbConnection.js"
+
+connectDB();
 
 app.use(express.json())
 

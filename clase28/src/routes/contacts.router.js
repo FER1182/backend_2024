@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { ContactsMongo } from "../dao/managers/mongo/contacts.mongo";
+import { ContactsMongo } from "../dao/managers/mongo/contacts.mongo.js";
 
 
 const router = Router()
