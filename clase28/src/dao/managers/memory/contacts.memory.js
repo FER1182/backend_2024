@@ -1,4 +1,4 @@
-class ContactsMemory {
+export class ContactsMemory {
     constructor(){
         this.contacts = [
             {
