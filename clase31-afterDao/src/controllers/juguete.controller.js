@@ -1,5 +1,6 @@
 import MongoDBJuguetesDao from "../dao/mongoDBJuguetesDao.js";
-const jugueteService = new MongoDBJuguetesDao();
+import memoryJugueteDao from "../dao/memoryJugueteDao.js";
+const jugueteService = new memoryJugueteDao();
 
  class JugueteController {
   async obtenerJuguetes(req, res) {

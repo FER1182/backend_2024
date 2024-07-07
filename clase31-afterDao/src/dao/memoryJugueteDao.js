@@ -8,7 +8,7 @@ class memoryJugueteDao {
       this.juguetes.push(juguete);
       return juguete;
     } catch (error) {
-      throw new Error("Error al crear un juguete");
+      throw new Error("Error al crear un juguete en memoria");
     }
   }
 
@@ -16,7 +16,9 @@ class memoryJugueteDao {
     try {
       return this.juguetes;
     } catch (error) {
-      throw new Error("Error al obtener los juguetes");
+      throw new Error("Error al obtener los juguetes de memoria");
     }
   }
 }
+
+export default memoryJugueteDao;
