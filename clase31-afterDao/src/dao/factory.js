@@ -1,21 +1,19 @@
 import config from "../config/config.js";
-
+import MongoDBJuguetesDao from "./mongoDBJuguetesDao.js";
+import memoryJugueteDao from "./memoryJugueteDao.js";
+import fileSystemJugueteDao from "./fileSystemJugueteDao.js";
 let DAO;
 
 switch (config.persistence) {
     case "fileSystem":
-        const {fileSystemJugueteDao} = await import("./fileSystemJugueteDao.js")
-        console.log("hola")
-         DAO = fileSystemJugueteDao;
+        
+        
+         DAO = new fileSystemJugueteDao();
         break;
     case "mongoDB":
-        const {MongoDBJuguetesDao} = await import("./mongoDBJuguetesDao.js")
-        console.log("mongo")
-        DAO =  MongoDBJuguetesDao;
+        DAO = new MongoDBJuguetesDao();
         break;
     default:
-        const memoryJugueteDao = await import("./memoryJugueteDao.js")
-        console.log(memoryJugueteDao)
         DAO = new memoryJugueteDao();
 }
 console.log(DAO)
