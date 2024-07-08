@@ -1,0 +1,17 @@
+[
+  {
+    "nombre": "aro de basquet",
+    "categoria": "Deportes",
+    "precio": 30
+  },
+  {
+    "nombre": "casita de jugeguete",
+    "categoria": "Casita",
+    "precio": 300
+  },
+  {
+    "nombre": "chupete",
+    "categoria": "bebe",
+    "precio": 15
+  }
+]

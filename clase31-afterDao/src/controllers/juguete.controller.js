@@ -1,8 +1,14 @@
-import MongoDBJuguetesDao from "../dao/mongoDBJuguetesDao.js";
-import memoryJugueteDao from "../dao/memoryJugueteDao.js";
-const jugueteService = new memoryJugueteDao();
+// import MongoDBJuguetesDao from "../dao/mongoDBJuguetesDao.js";
+// import memoryJugueteDao from "../dao/memoryJugueteDao.js";
+// import fileSystemJugueteDao from "../dao/fileSystemJugueteDao.js";
+// const jugueteService = new fileSystemJugueteDao();
 
+//caso con factory
+import jugueteService from "../dao/factory.js";
+
+console.log(jugueteService)
  class JugueteController {
+
   async obtenerJuguetes(req, res) {
     try {
       const juguetes = await jugueteService.obtenerJuguetes();

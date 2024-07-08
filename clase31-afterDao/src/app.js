@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }))
 
 //Rutas
 app.use('/juguetes',jugueteRouter)
-
+//usamos el patron factory es basarse en una variable de entorno instalamos dotenv y creamos el archivo .env
 
 
 app.listen(PORT, () => {    
