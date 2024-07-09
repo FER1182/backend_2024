@@ -33,7 +33,7 @@ router.get("/register", (req, res) => {
   res.render("register");
 });
 
-router.get("/profile", (req, res) => {
+router.get("/current", (req, res) => {
   if (!req.session.login) {
     return res.redirect("/login");
   }
