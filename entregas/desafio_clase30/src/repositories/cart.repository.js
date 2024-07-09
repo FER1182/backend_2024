@@ -1,7 +1,6 @@
-import { promises as fs } from "fs";
 import CartModel from "../models/cart.model.js";
 
-class CartManager {
+class CartRepository {
   //agrega el carrito con el producto
   async addCart() {
     try {
@@ -16,10 +15,10 @@ class CartManager {
 
   async getCarts() {
     try {
-      const nuevoArray = await this.leerArchivos();
+      const nuevoArray = await CartModel.find();
       return nuevoArray;
     } catch (error) {
-      console.log("Error al leer el archivo", error);
+      console.log("Error al cargar los carritos", error);
     }
   }
 
@@ -128,4 +127,4 @@ class CartManager {
   }
 }
 
-export default CartManager;
+export default CartRepository;

@@ -1,8 +1,8 @@
-import { promises as fs } from "fs";
+
 import ProductModel from "../models/product.model.js";
 import mongoosePaginate from "mongoose-paginate-v2";
 
-class ProductManager {
+class ProductRepository {
   async addProduct({ title, description, price, img, code, stock, category, status }) {
     try {
 
@@ -129,4 +129,4 @@ class ProductManager {
   }
 }
 
-export default ProductManager;
+export default ProductRepository;

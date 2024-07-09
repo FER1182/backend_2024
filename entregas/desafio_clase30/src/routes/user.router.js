@@ -1,8 +1,8 @@
 import express from "express";
 const router = express.Router();
-import CartManager from "../controller/carts-manager.js";
+import CartManager from "../controller/carts.controller.js";
 const manager = new CartManager();
-import UsuarioModel from "../models/usuario.model.js";
+
 import { createHash } from "../utils/hashbcrypt.js";
 import jwt from "jsonwebtoken";
 import passport from "passport";
@@ -11,7 +11,7 @@ import passport from "passport";
 
 router.post("/", async (req, res) => {
   const { first_name, last_name, email, password, age } = req.body;
-  console.log("estoy aca");
+  
   try {
     //verificar si el correo esta registrado
     const existeUsuario = await UsuarioModel.findOne({ email: email });
