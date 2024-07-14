@@ -1,6 +1,6 @@
 import UsuarioModel from "../models/usuario.model.js";
-
-
+import cartRepository from "./cart.repository.js";
+import { createHash } from "../utils/hashbcrypt.js";
 export default class UserRepository {
   async getUsers() {
     try {
@@ -19,9 +19,33 @@ export default class UserRepository {
   }
 
   async addUser(userData) {
+    const { first_name, last_name, email, password, age } = userData;
+
     try {
-      const user = new UsuarioModel(userData);
-      return await user.save();
+      //verificar si el correo esta registrado
+      const existeUsuario = await UsuarioModel.findOne({ email: email });
+      if (existeUsuario) {
+        return res.status(400).send("el correo ya esta registrado");
+      }
+      const creaCarrito = await cartRepository.addCart();
+      
+      //definimos el rol del usuario
+      
+      const role = email === "admincoder@coder.com" ? "admin" : "usuario";
+      
+      //creacion de nuevo usuario
+      const nuevoUsuario = await UsuarioModel.create({
+        first_name,
+        last_name,
+        email,
+        password: createHash(password),
+        age,
+        carts:creaCarrito._id,
+        role,
+      });
+
+      return nuevoUsuario;
+     
     } catch (error) {
       throw new Error(`Error adding user: ${error.message}`);
     }
@@ -43,4 +67,3 @@ export default class UserRepository {
     }
   }
 }
-
