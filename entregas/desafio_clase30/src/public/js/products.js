@@ -2,7 +2,9 @@ const socket = io()
 
 const formateador = new Intl.NumberFormat('es-ES');
 socket.on("productos", (data) => {
-    console.log(data)
+    Object.keys(data).forEach((key) => {
+        console.log(key, data[key]);
+      })
     const contenedorProductos = document.getElementById("contenedorProductos");
     contenedorProductos.innerHTML = "";
     data.forEach(item => {
@@ -21,7 +23,7 @@ socket.on("productos", (data) => {
                         `
         contenedorProductos.appendChild(card)
         card.querySelector("button").addEventListener("click", () => {
-            eliminarProducto(item.id)
+            eliminarProducto(item._id)
         })
 
     })

@@ -79,11 +79,11 @@ import ProductModel from "./models/product.model.js";
 io.on("connection", async(socket)=>{
     
     const productos = await ProductModel.find();
-    console.log(productos);
+    console.log("estoy en productos");
 
     socket.emit("productos", async () =>{
         const producto = productController.getProducts;
-        console.log(producto) 
+        
         productController.getProducts;
     })
     socket.on("eliminarProducto",async(id)=>{
@@ -94,6 +94,6 @@ io.on("connection", async(socket)=>{
     socket.on("agregarProductos", async()=>{
         
         productController.addProduct;
-        socket.emit("productos",await manager.getProducts());
+        socket.emit("productos",productos);
     })   
 })
