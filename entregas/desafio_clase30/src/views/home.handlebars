@@ -22,7 +22,7 @@
                 <a href="/api/products/{{this._id}}">
                     <button>Ver detalles</button>
                 </a>
-                <form action="/api/carts/{{this.idCarrito}}/product/{{this._id}}" method="post">
+                <form action="/api/carts/{{this.idCarrito}}/product/{{this._id}}" method="put">
                     <button type="submit" class="add-to-cart">agregar al Carrito</button>
                 </form>
             </div>

@@ -10,15 +10,17 @@ socket.on("productos", (data) => {
     data.forEach(item => {
         const card = document.createElement("div");
         card.innerHTML = `
-                            <div class="card" style="width: 18rem;">
-                                <img src="${item.img}" class="card-img-top" alt="...">
+                        <div class="col-md-4">
+                            <div class="card" padding: "1em" style="width: 10rem" >
+                                <img src="${item.img}" class="card-img-top" height="200px" alt="...">
                                 <div class="card-body">
-                                     <p> Id: ${item.id}</p>
+                                     <p> ${item.title}</p>
                                      <h5 class="card-title">${item.title}</h5>
                                      <p> Precio: $ ${formateador.format(item.price)}</p>   
                                      <button> Eliminar Producto </button>
                                 </div>
                             </div>
+                         </div>   
                     
                         `
         contenedorProductos.appendChild(card)
