@@ -27,6 +27,7 @@ export default class UserController {
   async getUserById(req, res) {
     try {
       const id = req.params.id;
+      
       const user = await userRepository.getUser(id);
       res.status(200).json(user);
     } catch (error) {

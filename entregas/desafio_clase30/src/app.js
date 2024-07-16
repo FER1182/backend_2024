@@ -74,3 +74,26 @@ io.on("connection", (socket)=>{
 
     
 })
+import ProductModel from "./models/product.model.js";
+
+io.on("connection", async(socket)=>{
+    
+    const productos = await ProductModel.find();
+    console.log(productos);
+
+    socket.emit("productos", async () =>{
+        const producto = productController.getProducts;
+        console.log(producto) 
+        productController.getProducts;
+    })
+    socket.on("eliminarProducto",async(id)=>{
+        await manager.deletProduct(id);
+        socket.emit("productos",productController.deleteProduct);
+    })
+
+    socket.on("agregarProductos", async()=>{
+        
+        productController.addProduct;
+        socket.emit("productos",await manager.getProducts());
+    })   
+})

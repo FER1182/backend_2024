@@ -71,6 +71,7 @@ export default class ProductController {
     const product = req.body
     try {
       await productRepository.addProduct(product);
+      
       res.send({message:"producto creado con exito"})
     } catch (error) {
       res.status(500).json({error: "Error interno del servidor"});

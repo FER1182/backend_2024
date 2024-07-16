@@ -1,9 +1,8 @@
 import express from "express";
 const router = express.Router();
 
-import ProductManager from "../controller/products.controller.js";
-const manager = new ProductManager("./src/models/productos.json");
-
+import {UserDTO}  from "../user.dto.js"
+import passport from "passport";
 
 
 router.get("/", (req, res) => {
@@ -33,12 +32,14 @@ router.get("/register", (req, res) => {
   res.render("register");
 });
 
-router.get("/current", (req, res) => {
+router.get("/current", passport.authenticate("jwt", {session :false}),(req, res) => {
   if (!req.session.login) {
     return res.redirect("/login");
   }
-
-  res.render("profile");
+  console.log(req.user)
+  const user = new UserDTO(req.user);
+  console.log(user)
+  res.render("profile",{user:user});
 });
 
 export default router;
