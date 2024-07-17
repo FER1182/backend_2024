@@ -106,6 +106,7 @@ class CartRepository {
   async updateCart(idCart, idProduct, quantity = 1) {
     try {
       const cart = await this.getCartById(idCart);
+      console.log(cart)
       const existeProducto = cart.products.find(
         (item) => item.product.toString() === idProduct
       );

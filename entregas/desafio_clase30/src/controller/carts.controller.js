@@ -31,6 +31,7 @@ export default class CartsController {
   } 
   async updateCart(req, res) {
     try {
+      console.log("es apdate car")
       const idCart = req.params.cid;
       const idProduct = req.params.pid;
       const cantProdAgregado = req.body.quantity;

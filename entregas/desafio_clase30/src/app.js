@@ -5,6 +5,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 import passport from "passport";
+import methodOverride from 'method-override';
 import initializePassport from "./config/passport.config.js";
  
 //Rutas 
@@ -26,6 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static("./src/public"));
 app.use(cookieParser());
+app.use(methodOverride('_method'));
 app.use(passport.initialize());
 initializePassport();   
 

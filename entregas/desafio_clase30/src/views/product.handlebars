@@ -12,7 +12,7 @@
                     <p>precio : $ {{productoFinal.price}}</p>
                     <p>categoria : {{productoFinal.category}}</p>
 
-                    <form action="/api/carts/{{idCarrito}}/product/{{productoFinal._id}}" method="put">
+                    <form action="/api/carts/{{idCarrito}}/product/{{productoFinal._id}}" method="post">
                         <button type="submit" class="add-to-cart">agregar al Carrito</button>
                     </form>
                 </div>
