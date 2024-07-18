@@ -10,6 +10,7 @@ export default class UserController {
         first_name: nuevoUsuario.first_name,
         last_name: nuevoUsuario.last_name,
         role: nuevoUsuario.role,
+        idCart: nuevoUsuario.carts,
       },
       "coderhouse",
       { expiresIn: "1h" }

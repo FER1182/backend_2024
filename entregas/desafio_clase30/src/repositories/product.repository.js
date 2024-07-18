@@ -66,7 +66,7 @@ class ProductRepository {
         console.error(`Error: Producto con id ${id} no encontrado.`);
         return null;
       } else {
-        console.log("producto encontrado");
+        
         return producto;
       }
     } catch (error) {

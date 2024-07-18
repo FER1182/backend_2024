@@ -34,6 +34,7 @@ router.post("/login", async (req, res) => {
             first_name: usuario.first_name,
             last_name: usuario.last_name,
             role: usuario.role,
+            idCart: usuario.carts,
           },
           "coderhouse",
           { expiresIn: "1h" }

@@ -4,11 +4,12 @@ const router = express.Router();
 import { UserDTO } from "../user.dto.js";
 import passport from "passport";
 
-router.get("/", (req, res) => {
-  if (req.session.login) {
-    return res.redirect("/api/products");
+router.get("/",(req, res) => {
+ 
+  if (!req.user) {
+    return res.redirect("/login");
   }
-  res.redirect("/login");
+  res.redirect("/api/products");
 });
 router.get(
   "/chat",

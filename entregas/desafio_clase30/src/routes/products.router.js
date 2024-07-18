@@ -14,7 +14,7 @@ router.get("/realtimeproducts",passport.authenticate("jwt", {session :false}), (
     res.send("No tiene acceso");
     }    
 })
-router.get("/:pid", productController.getProductById)
+router.get("/:pid",passport.authenticate("jwt", {session :false}), productController.getProductById)
 router.post("/", productController.addProduct)
 
 router.put("/:pid", productController.updateProduct)

@@ -41,7 +41,7 @@ class CartRepository {
   async updateCartYagrega(idCart, idProduct, quantity = 1) {
     try {
       const cart = await this.getCartById(idCart);
-      console.log(idProduct);
+      
       const existeProducto = cart.products.find(
         (item) => item.product._id.toString() === idProduct
       );
@@ -110,7 +110,7 @@ class CartRepository {
       const existeProducto = cart.products.find(
         (item) => item.product.toString() === idProduct
       );
-
+      console.log(existeProducto)
       if (existeProducto) {
         existeProducto.quantity += quantity;
 

@@ -1,5 +1,8 @@
 import express from "express";
-import exphbs from "express-handlebars";
+import { engine as exphbs } from "express-handlebars";
+import Handlebars from "handlebars";
+import {allowInsecurePrototypeAccess} from "@handlebars/allow-prototype-access"
+const insecureHandlebars = allowInsecurePrototypeAccess(Handlebars)
 import { Server } from "socket.io";
 import session from "express-session";
 import MongoStore from "connect-mongo";
@@ -42,7 +45,10 @@ initializePassport();
  }))
 
 //configuracion handlebars
-app.engine("handlebars",exphbs.engine());
+app.engine("handlebars",exphbs({
+    handlebars:insecureHandlebars,
+    defaultLayout : "main",
+}));
 app.set("view engine","handlebars");
 app.set("views", "./src/views");
 

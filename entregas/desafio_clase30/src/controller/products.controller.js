@@ -14,14 +14,15 @@ export default class ProductController {
         sort,
         query,
       });
+      
       const productoFinal = productos.docs.map((producto) => {
         const { _id, ...rest } = producto.toObject();
-        const idCarrito = "66538ca67cb76c114de5def8";
+        const idCarrito = req.user.idCart;
         const todo = { _id, rest, idCarrito };
 
         return todo;
       });
-
+      
       res.render("home", {
         productoFinal: productoFinal,
         hasPrevPage: productos.hasPrevPage,
@@ -44,6 +45,8 @@ export default class ProductController {
 
   async getProductById(req, res) {
     try { 
+      
+      const idCarrito = req.user.idCart;
       const id = req.params.pid;
       const producto = await productRepository.getProductById(id);
 
@@ -55,7 +58,7 @@ export default class ProductController {
       
       res.render("product", {
         productoFinal: producto,
-        idCarrito: "66538ca67cb76c114de5def8",
+        idCarrito: idCarrito,
         titulo: "supermecado",
         
       });

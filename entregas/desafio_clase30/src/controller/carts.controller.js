@@ -15,10 +15,11 @@ export default class CartsController {
     try {
       const id = req.params.cid;
       const cart = await cartRepository.getCartById(id);
-      res.json(cart);
+
+      res.render("cart", { cart: cart.products }); //res.json(cart);
     } catch (error) {
       res.status(500).send("Error al obtener el carrito");
-    } 
+    }
   }
 
   async addCart(req, res) {
@@ -26,24 +27,31 @@ export default class CartsController {
       const cart = await cartRepository.addCart();
       res.json(cart);
     } catch (error) {
-      res.status(500).send("Error al crear el carrito");  
+      res.status(500).send("Error al crear el carrito");
     }
-  } 
+  }
   async updateCart(req, res) {
-    try {
-      console.log("es apdate car")
-      const idCart = req.params.cid;
-      const idProduct = req.params.pid;
-      const cantProdAgregado = req.body.quantity;
-      const cart = await cartRepository.updateCart(idCart, idProduct, cantProdAgregado);
-      if(!cart) {
-        return res.json({
-          error: "Carrito no encontrado"    
-        })
-      }  
-      res.json(cart);
-    } catch (error) {
-      res.status(500).send("Error al actualizar el carrito");
+    if (req.user.role !== "admin") {
+      try {
+        const idCart = req.params.cid;
+        const idProduct = req.params.pid;
+        const cantProdAgregado = req.body.quantity;
+        const cart = await cartRepository.updateCartYagrega(
+          idCart,
+          idProduct,
+          cantProdAgregado
+        );
+        if (!cart) {
+          return res.json({
+            error: "Carrito no encontrado",
+          });
+        }
+        res.redirect("/api/carts/" + idCart);
+      } catch (error) {
+        res.status(500).send("Error al actualizar el carrito");
+      }
+    } else {
+      res.send("El administrador no puede agregar productos al carrito");
     }
   }
 
@@ -52,12 +60,12 @@ export default class CartsController {
       const idCart = req.params.cid;
       const idProduct = req.params.pid;
       const cart = await cartRepository.deleteProductCart(idCart, idProduct);
-      if(!cart) {
+      if (!cart) {
         return res.json({
-          error: "Carrito no encontrado"  
-        })
+          error: "Carrito no encontrado",
+        });
       }
-      res.send({message:"producto eliminado con exito del carrito"})
+      res.send({ message: "producto eliminado con exito del carrito" });
       res.json(cart);
     } catch (error) {
       res.status(500).send("Error al actualizar el carrito");
@@ -66,16 +74,13 @@ export default class CartsController {
   async emptyCart(req, res) {
     try {
       const idCart = req.params.cid;
-      const products = []
-   
-        const producto = await manager.actualizarCarrito(idCart,{products});
-         res.send({message:"se vacio el carrito"})
+      const products = [];
+
+      const producto = await manager.actualizarCarrito(idCart, { products });
+      res.send({ message: "se vacio el carrito" });
     } catch (error) {
-        console.error("Error al actualizar el carrito", error);
-        res.status(500).json({error: "Error interno del servidor"});
+      console.error("Error al actualizar el carrito", error);
+      res.status(500).json({ error: "Error interno del servidor" });
     }
   }
-    
-
-
-} 
+}
