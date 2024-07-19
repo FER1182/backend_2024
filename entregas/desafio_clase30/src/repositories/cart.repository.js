@@ -87,7 +87,8 @@ class CartRepository {
   }
 
   // actualizar todo el carrito:
-  async actualizarCarrito(idCart, { products }) {
+  async actualizarCarrito(idCart,  products) {
+    console.log("en cart repository",products)
     try {
       const cart = await CartModel.findById(idCart);
       if (!cart) {
@@ -110,7 +111,7 @@ class CartRepository {
       const existeProducto = cart.products.find(
         (item) => item.product.toString() === idProduct
       );
-      console.log(existeProducto)
+      
       if (existeProducto) {
         existeProducto.quantity += quantity;
 

@@ -24,17 +24,19 @@
                 <a href="/api/products/{{this._id}}">
                     <button>Ver detalles</button>
                 </a>
-               
+
                 <form action="/api/carts/{{idCarrito}}/product/{{this._id}}" method="post">
                     <button type="submit" class="add-to-cart">agregar al Carrito</button>
                 </form>
-               
+
             </div>
         </div>
     </div>
     {{/each}}
 
-
+    <li class="nav-item">
+        <a class="nav-link" href="/api/carts/{{user.idCart}}">Ver Carrito</a>
+    </li>
 </div>
 {{#if hasPrevPage}}
 <a href="/api/products?limit={{limit}}&page={{prevPage}}"> Anterior </a>

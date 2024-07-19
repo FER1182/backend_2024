@@ -9,6 +9,7 @@ router.get("/", cartsController.getCarts);
 router.get("/:cid", cartsController.getCartById);
 router.post("/", cartsController.addCart);   
 router.post("/:cid/product/:pid",passport.authenticate("jwt", {session :false}), cartsController.updateCart);
+router.post("/:cid/purchase/",passport.authenticate("jwt", {session :false}), cartsController.purchaseCart);
 router.delete("/:cid/product/:pid", cartsController.deleteProductCart);
 router.delete("/:cid", cartsController.emptyCart)
 
