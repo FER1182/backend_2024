@@ -11,7 +11,7 @@ const usuarios = [];
 router.post("/", async (req, res, next) => {
   try {
     const usuario = req.body;
-    if (usuario.name && usuario.apellido && usuario.email) {
+    if (usuario.nombre && usuario.apellido && usuario.email) {
       usuarios.push(usuario);
       res.send({ status : "success", payload: usuario });
     } else {

@@ -7,7 +7,7 @@ const manejadorError = (error, req, res, next) => {
             res.send({ status: "error", error: error.nombre });
             break;
         default:
-
+            res.send({ status: "error", error: "error desconocido" });
     }
 
 }

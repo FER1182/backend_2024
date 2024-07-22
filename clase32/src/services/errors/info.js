@@ -2,7 +2,7 @@
 const generarInfoError = (usuario) => {
     return `los datos estan incompletos o no son correctos .
     necesitamos recibir los siguientes datos 
-    -nombre: String pero recibimos los siguiento ${usuario.name}
+    -nombre: String pero recibimos los siguiento ${usuario.nombre}
     -apellidos: String pero recibimos  ${usuario.apellido}
     -email: String pero recibimos  ${usuario.email}
     ` 
