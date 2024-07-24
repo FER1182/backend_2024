@@ -1,0 +1,16 @@
+{"level":"info","message":"mensaje info"}
+{"level":"warn","message":"mensaje warn"}
+{"level":"error","message":"mensaje error"}
+{"level":"warn","message":"mensaje warn"}
+{"level":"error","message":"mensaje error"}
+warn: mensaje warn
+error: mensaje error
+warn: mensaje warn
+error: mensaje error
+warn: mensaje warn
+error: mensaje error
+http: GET en /loggertest - 10:30:20 PM
+http: mensaje http
+info: mensaje info
+warn: mensaje warn
+error: mensaje error
