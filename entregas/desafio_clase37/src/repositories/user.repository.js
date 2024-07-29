@@ -1,5 +1,6 @@
 import UsuarioModel from "../models/usuario.model.js";
-import cartRepository from "./cart.repository.js";
+import CartRepository from "./cart.repository.js";
+const cartRepository = new CartRepository();
 import { createHash } from "../utils/hashbcrypt.js";
 export default class UserRepository {
   async getUsers() {
@@ -18,6 +19,13 @@ export default class UserRepository {
     }
   }
 
+  async getUserByEmail(email) {
+    try {
+      return await UsuarioModel.findOne({ email: email });
+    } catch (error) {
+      throw new Error(`Error getting user with id ${email}: ${error.message}`);
+    }
+  }
   async addUser(userData) {
     const { first_name, last_name, email, password, age } = userData;
 

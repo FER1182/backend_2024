@@ -1,5 +1,8 @@
 import express from "express";
 const router = express.Router();
+import ViewsController from "../controller/views.controller.js";
+const viewsController = new ViewsController();
+
 
 import { UserDTO } from "../user.dto.js";
 import passport from "passport";
@@ -63,8 +66,13 @@ router.get('/loggerTest', (req, res) => {
   req.logger.info('mensaje de info');
   req.logger.http('mensaje de http');
   req.logger.debug('mensaje de debug');
-
   res.send('logs generados');
 });
+
+router.get("/reset-password", viewsController.renderResetPassword);
+router.get("/pasword", viewsController.renderCambioPassword);
+router.get("/confirmacion-envio", viewsController.renderConfirmacion);
+
+
 
 export default router;

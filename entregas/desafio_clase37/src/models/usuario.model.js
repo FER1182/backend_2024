@@ -29,9 +29,14 @@ const schema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["admin", "usuario"],
+    enum: ["admin", "usuario","premium"],
     default: "usuario",
   },
+  resetToker:{
+    token: String,
+    expires: Date
+  }
+
 });
 
 const UsuarioModel = mongoose.model("usuarios", schema);
