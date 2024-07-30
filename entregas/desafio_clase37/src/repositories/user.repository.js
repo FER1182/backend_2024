@@ -11,7 +11,7 @@ export default class UserRepository {
     }
   }
 
-  async getUser(id) {
+  async getUserById(id) {
     try {
       return await UsuarioModel.findById(id);
     } catch (error) {

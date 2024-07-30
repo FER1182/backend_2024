@@ -38,7 +38,7 @@ const eliminarProducto = (id) =>{
 
 
 document.getElementById("btnEnviar").addEventListener("click",()=>{
-    console.log("agregue")
+   
     agregarProductos();
     
 })

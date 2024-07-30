@@ -34,7 +34,15 @@ const productSchema = new mongoose.Schema({
         type : Boolean,
         required :true
     },
-    
+    owner:{
+        type: String,
+        enum: ["admin","premium"],
+        default: "admin",
+        usuario: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "usuarios",
+            }
+    }
      
 })
 productSchema.plugin(mongoosePaginate)

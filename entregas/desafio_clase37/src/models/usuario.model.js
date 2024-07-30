@@ -32,7 +32,7 @@ const schema = new mongoose.Schema({
     enum: ["admin", "usuario","premium"],
     default: "usuario",
   },
-  resetToker:{
+  resetToken:{
     token: String,
     expires: Date
   }

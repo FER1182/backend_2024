@@ -64,7 +64,7 @@ const logger = node_env === 'produccion' ? loggerProduccion : loggerDesarrollo
 //middlewares
 
 const addLogger = (req, res, next) => {
-    console.log(req.method)
+    
     req.logger = logger;
     req.logger.http(`${req.method} en ${req.url} - ${new Date().toLocaleTimeString()}`);
     next();

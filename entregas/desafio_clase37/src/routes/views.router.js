@@ -70,7 +70,7 @@ router.get('/loggerTest', (req, res) => {
 });
 
 router.get("/reset-password", viewsController.renderResetPassword);
-router.get("/pasword", viewsController.renderCambioPassword);
+router.get("/password", viewsController.renderCambioPassword);
 router.get("/confirmacion-envio", viewsController.renderConfirmacion);
 
 

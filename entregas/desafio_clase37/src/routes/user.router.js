@@ -20,7 +20,8 @@ router.post("/",userController.createUser);
 router.delete("/:id", userController.deleteUser);
 
 router.post("/requestPasswordReset", userController.requestPasswordReset);
-router.post("/resetPassword", userController.resetPassword);
+router.post("/reset-password", userController.resetPassword);
+router.put("/premium/:uid", userController.cambioRolPremium);
 
 
 
