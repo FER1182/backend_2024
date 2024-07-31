@@ -22,3 +22,12 @@ const authorizeRole = (roles) => {
 };
 
 export default authorizeRole;
+
+// passport.authenticate("jwt", {session :false}), (req, res) => {
+   
+//     if(req.user.role === "admin"){
+//     res.render("realTimeProducts", { titulo: "supermecado" });
+//     }else{
+//     res.send("No tiene acceso");
+//     }  
+

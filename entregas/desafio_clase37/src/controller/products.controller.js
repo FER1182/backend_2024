@@ -115,5 +115,14 @@ export default class ProductController {
       });
     }
   }
+  async renderRealTimeProducts(req, res) {
+    try {
+      res.render("realTimeProducts", { titulo: "supermecado" });
+    } catch (error) {
+      res.status(500).json({
+        error: "Error interno del servidor",
+      });
+    }
+  }
 
 }

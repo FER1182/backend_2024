@@ -35,10 +35,12 @@ const productSchema = new mongoose.Schema({
         required :true
     },
     owner:{
-        type: String,
-        enum: ["admin","premium"],
-        default: "admin",
-        usuario: {
+        role: {
+            type: String,
+            enum: ["admin","premium"],
+            default: "admin",
+        },
+        userId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "usuarios",
             }
