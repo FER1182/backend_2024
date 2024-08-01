@@ -66,7 +66,23 @@ const httpServer = app.listen(PUERTO,()=>{
 
 
 const io = new Server(httpServer);
-
+// Middleware para compartir sesión con socket.io
+io.use((socket, next) => {
+    const sessionID = socket.request.headers.cookie?.['connect.sid'];
+    if (sessionID) {
+        session({
+            secret: "secretCoder",
+            resave: true,
+            saveUninitialized: true,
+            store: MongoStore.create({
+                mongoUrl: "mongodb+srv://fernandorudnevichinedita:231182@cluster0.xe7glky.mongodb.net/E-commerce?retryWrites=true&w=majority&appName=Cluster0",
+                ttl: 100
+            })
+        })(socket.request, {}, next);
+    } else {
+        next(new Error('Authentication error'));
+    }
+});
 
 io.on("connection", (socket)=>{
     logger.info("nuevo usuario conectado")
@@ -88,6 +104,13 @@ import ProductRepository from "./repositories/product.repository.js";
 
 io.on("connection", async(socket)=>{
     
+       // Acceder a la sesión y datos del usuario
+       const user = socket.request.session.passport?.user;
+       if (user) {
+           logger.info(`Usuario conectado con ID: ${user}`);
+       } else {
+           logger.info("No hay usuario autenticado");
+       }
     const productos = await ProductModel.find();
     logger.info("estoy en productos");
     
