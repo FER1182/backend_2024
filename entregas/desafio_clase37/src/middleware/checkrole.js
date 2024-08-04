@@ -7,6 +7,7 @@ const authorizeRole = (roles) => {
     return (req, res, next) => {
         passport.authenticate('jwt', { session: false }, (err, user) => {
             if (err || !user) {
+                console.log(user)
                 return res.status(401).json({ message: 'No autorizado' });
             }
 

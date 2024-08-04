@@ -72,6 +72,7 @@ export default class ProductController {
 
   async addProduct(req, res) {
     const product = req.body
+    console.log("user p.controller addporduct",req.user)
     try {
       await productRepository.addProduct(product);
       
@@ -99,25 +100,37 @@ export default class ProductController {
     }
   }
 
-  async deleteProduct(req, res) {
+  async deleteProduct(req, res,next) {
     const id = req.params.pid;
+    const {userId, role} = req.user;
     try {
-      const deletProduct = await productRepository.deletProduct(id);
-      if (!deletProduct) {
-        return res.json({
-          error: "Producto no encontrado",  
-        });
+      const product = await productRepository.getProductById(id);
+      if (!product) {
+        throw CustomError.crearError('Producto no encontrado', 404);
       }
-      res.send({message:"producto eliminado con exito"})  
+      
+      if(role === 'admin') {
+       await productRepository.deletProduct(id);
+       return res.status(200).json({ message: 'Producto eliminado con éxito' }); 
+      } else if(role === 'premium') {
+        if (product.owner.toString() !== userId.toString()) {
+          throw CustomError.crearError('No tienes permiso para borrar este producto', 403);
+        } 
+        await productRepository.deletProduct(id);
+        return res.status(200).json({ message: 'Producto eliminado con éxito' });
+      }else {
+        throw CustomError.crearError('No tienes permiso para realizar esta acción', 403);
+      }
+    
     } catch (error) {
-      res.status(500).json({
-        error: "Error interno del servidor",
-      });
+      next(error);
     }
   }
   async renderRealTimeProducts(req, res) {
     try {
-      res.render("realTimeProducts", { titulo: "supermecado" });
+      const user = req.user;
+      
+      res.render("realTimeProducts", { titulo: "supermecado", user: user });
     } catch (error) {
       res.status(500).json({
         error: "Error interno del servidor",

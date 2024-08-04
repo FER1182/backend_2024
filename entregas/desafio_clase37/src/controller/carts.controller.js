@@ -19,16 +19,16 @@ export default class CartsController {
     try {
       const id = req.params.cid;
       const cart = await cartRepository.getCartById(id);
-      
+
       let totalCart = 0;
-       for (let item of cart.products) {
-         totalCart += item.product.price * item.quantity;
-       }
-       res.render("cart", { 
-        cartId : id,
-         cart: cart.products , 
-         totalCart: totalCart
-       }); //res.json(cart);
+      for (let item of cart.products) {
+        totalCart += item.product.price * item.quantity;
+      }
+      res.render("cart", {
+        cartId: id,
+        cart: cart.products,
+        totalCart: totalCart,
+      }); //res.json(cart);
     } catch (error) {
       res.status(500).send("Error al obtener el carrito");
     }
@@ -48,15 +48,28 @@ export default class CartsController {
         const idCart = req.params.cid;
         const idProduct = req.params.pid;
         const cantProdAgregado = req.body.quantity;
-        const cart = await cartRepository.updateCartYagrega(
-          idCart,
-          idProduct,
-          cantProdAgregado
-        );
-        if (!cart) {
-          return res.json({
-            error: "Carrito no encontrado",
-          });
+        if (req.user.role === "premium") {
+          const product = await productRepository.getProductById(idProduct);
+          if (product.owner.userId === req.user.userId) {
+            const cart = await cartRepository.updateCartYagrega(
+              idCart,
+              idProduct,
+              cantProdAgregado
+            );
+          } else {
+            res.send("No puedes agregar un producto tuyo");
+          }
+        } else {
+          const cart = await cartRepository.updateCartYagrega(
+            idCart,
+            idProduct,
+            cantProdAgregado
+          );
+          if (!cart) {
+            return res.json({
+              error: "Carrito no encontrado",
+            });
+          }
         }
         res.redirect("/api/carts/" + idCart);
       } catch (error) {
@@ -100,33 +113,40 @@ export default class CartsController {
       const idCart = req.params.cid;
       const cart = await cartRepository.getCartById(idCart);
       let insufficientStockItems = [];
-      let cartTicket =[]
+      let cartTicket = [];
       let totalCart = 0;
-      
+
       for (let item of cart.products) {
-        
-        const product = await productRepository.getProductById(item.product._id);
-        
+        const product = await productRepository.getProductById(
+          item.product._id
+        );
+
         if (product.stock < item.quantity) {
           insufficientStockItems.push(item);
-        }else{
-          product.stock -= item.quantity
-          await productRepository.updateProduct(item.product._id, product)
-          
+        } else {
+          product.stock -= item.quantity;
+          await productRepository.updateProduct(item.product._id, product);
+
           totalCart += item.product.price * item.quantity;
-          console.log(totalCart)
-          cartTicket.push(item)
+          console.log(totalCart);
+          cartTicket.push(item);
         }
       }
-      
 
-      console.log(insufficientStockItems)
-      const cartUpdated = await cartRepository.actualizarCarrito(idCart,  insufficientStockItems );
-      console.log("en cart controller",cartUpdated)
-      const ticket = await ticketRepository.addTickets( totalCart, req.user.usuario);
+      console.log(insufficientStockItems);
+      const cartUpdated = await cartRepository.actualizarCarrito(
+        idCart,
+        insufficientStockItems
+      );
+      console.log("en cart controller", cartUpdated);
+      const ticket = await ticketRepository.addTickets(
+        totalCart,
+        req.user.usuario
+      );
       if (insufficientStockItems.length > 0) {
         return res.status(400).json({
-          message: 'algunos productos no tienen stock , se realizo una parte de la compra, y quedaron estos productos pendientes',
+          message:
+            "algunos productos no tienen stock , se realizo una parte de la compra, y quedaron estos productos pendientes",
           insufficientStockItems,
         });
       }
