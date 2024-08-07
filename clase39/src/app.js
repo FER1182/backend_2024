@@ -27,7 +27,7 @@ app.use('/api/sessions',sessionsRouter);
 app.listen(PORT,()=>console.log(`Listening on ${PORT}`))
 
 // 1-instalamos http://swagger.io
-//npm i swagger-ui-express swager-jsdoc
+//npm i swaa
 //swager-jsdoc nos deja escribir la configuración en un archivo .yaml y a partir de ahi crear el archivo apidoc
 //swagger-ui-express permite linkear una interfaz grafica para poder visualizar la documentación
 //2 importamos los modulos
