@@ -1,0 +1,12 @@
+<div class="container mt-4">
+    {{#if message}}
+    <div class="alert alert-success" role="alert">
+        {{message}}
+    </div>
+    {{else}}
+    <div class="alert alert-danger" role="alert">
+        No se pudo completar la compra.
+    </div>
+    {{/if}}
+    <a href="/" class="btn btn-primary mt-3">Volver al inicio</a>
+</div>
