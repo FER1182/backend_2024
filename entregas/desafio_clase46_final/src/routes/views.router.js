@@ -8,11 +8,15 @@ import { UserDTO } from "../user.dto.js";
 import passport from "passport";
 import  logger  from "../utils/logger.js";
 
-router.get("/",passport.authenticate("jwt", {session :false}),(req, res) => {
- 
-  if (!req.user) {
-    return res.redirect("/login");
-  }
+router.get("/", (req, res, next) => {
+  passport.authenticate("jwt", { session: false }, (err, user, info) => {
+    if (err || !user) {
+      return res.redirect("/login");
+    }
+    req.user = user;
+    return next();
+  })(req, res, next);
+}, (req, res) => {
   res.redirect("/api/products");
 });
 router.get(

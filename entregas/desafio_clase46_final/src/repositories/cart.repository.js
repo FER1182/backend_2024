@@ -26,7 +26,7 @@ class CartRepository {
   async getCartById(id) {
     try {
       const cart = await CartModel.findById(id).populate("products.product");
-      
+     
       if (!cart) {
         console.error(`Error: Carrito con id ${id} no encontrado.`);
       } else {
@@ -64,23 +64,25 @@ class CartRepository {
   async deleteProductCart(idCart, idProduct) {
     try {
       const cart = await CartModel.findById(idCart);
-      const deletProduct = cart.products.filter(
-        (item) => item.product.toString() === idProduct
+  
+      // Filtrar los productos que no coinciden con el idProduct
+      const newProductList = cart.products.filter(
+        (item) => item._id.toString() !== idProduct
       );
-      console.log(deletProduct);
-      if (!deletProduct) {
-        console.error(
-          `Error: Producto con id ${id} no encontrado en el carrito.`
-        );
+  
+      // Verifica si algún producto fue eliminado
+      if (newProductList.length === cart.products.length) {
+        console.error(`Error: Producto con id ${idProduct} no encontrado en el carrito.`);
         return null;
-      } else {
-        console.log("producto eliminado del carrito");
-        cart.products = cart.products.filter(
-          (item) => item.product.toString() !== idProduct
-        );
-        await cart.save();
-        return cart;
       }
+  
+      // Actualiza la lista de productos en el carrito
+      cart.products = newProductList;
+      await cart.save();
+  
+      console.log("Producto eliminado del carrito");
+      return cart;
+  
     } catch (error) {
       console.log("Error al actualizar el carrito", error);
     }

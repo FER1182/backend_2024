@@ -5,8 +5,10 @@ import ProductController from "../controller/products.controller.js";
 const productController = new ProductController();
 import passport from "passport";
 import authorizeRole from "../middleware/checkrole.js";
+import  authErrorHandler  from "../middleware/authErrorHandler.js";
+import authenticateJWT from "../middleware/authMiddleware.js";
 
-router.get("/",passport.authenticate("jwt", {session :false}),productController.getProducts)
+router.get("/",authenticateJWT,productController.getProducts,authErrorHandler)
 
 
 router.get("/realtimeproducts",authorizeRole(["admin","premium"]), productController.renderRealTimeProducts);

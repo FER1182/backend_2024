@@ -13,7 +13,7 @@ router.post("/:cid/product/:pid",passport.authenticate("jwt", {session :false}),
 router.post("/:cid/purchase/",passport.authenticate("jwt", {session :false}), cartsController.purchaseCart);
 router.delete("/:cid/product/:pid", cartsController.deleteProductCart);
 router.delete("/:cid", cartsController.emptyCart)
-router.get('/confirmation', cartsController.confirmation);
+
 
 
 export default router

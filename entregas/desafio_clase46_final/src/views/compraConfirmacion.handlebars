@@ -1,12 +1,12 @@
-<div class="container mt-4">
-    {{#if message}}
-    <div class="alert alert-success" role="alert">
-        {{message}}
+<div class="confirmation-container">
+        <div class="confirmation-header text-center">
+            <h1 class="display-4">{{titulo}}</h1>
+        </div>
+        <div class="confirmation-message">
+            <p>{{message}}</p>
+            <p>Le enviamos un correo de confirmación a {{email}}</p>
+        </div>
+        <div class="text-center">
+            <a href="/api/products" class="btn btn-primary">Volver a la tienda</a>
+        </div>
     </div>
-    {{else}}
-    <div class="alert alert-danger" role="alert">
-        No se pudo completar la compra.
-    </div>
-    {{/if}}
-    <a href="/" class="btn btn-primary mt-3">Volver al inicio</a>
-</div>
