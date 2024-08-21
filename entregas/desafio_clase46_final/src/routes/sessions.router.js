@@ -45,7 +45,8 @@ router.post("/login", async (req, res) => {
           maxAge: 3600000,
           httpOnly: true,
         });
-
+        usuario.last_connection = new Date();
+        await usuario.save();
         res.redirect("/api/products");
       } else {
         res.status(401).send("contraseña no valida");

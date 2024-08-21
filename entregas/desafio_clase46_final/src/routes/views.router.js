@@ -35,10 +35,13 @@ router.get("/contacto", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
+  
   if (req.session.login) {
     return res.redirect("/api/products");
+  }else{
+    res.render("login");   
   }
-  res.render("login");
+ 
 });
 
 router.get("/register", (req, res) => {
@@ -50,8 +53,8 @@ router.get("/register", (req, res) => {
 
 router.get(
   "/current",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
+  passport.authenticate("jwt", { session: false }),(req, res) => {
+    console.log(req.session)
     if (!req.session.login) {
       return res.redirect("/login");
     }

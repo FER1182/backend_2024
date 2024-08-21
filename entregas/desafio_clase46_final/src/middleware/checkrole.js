@@ -13,10 +13,11 @@ const authorizeRole = (roles) => {
 
             // Verificar el rol
             if (roles.includes(user.role)) {
+                res.locals.isAuthenticated = !!user;
                 req.user = user;
                 next();
             } else {
-                return res.status(403).json({ message: 'Acceso denegado' });
+                return res.status(403).render('unauthorized');
             }
         })(req, res, next);
     };
@@ -24,11 +25,5 @@ const authorizeRole = (roles) => {
 
 export default authorizeRole;
 
-// passport.authenticate("jwt", {session :false}), (req, res) => {
-   
-//     if(req.user.role === "admin"){
-//     res.render("realTimeProducts", { titulo: "supermecado" });
-//     }else{
-//     res.send("No tiene acceso");
-//     }  
+
 

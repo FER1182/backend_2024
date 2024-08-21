@@ -27,8 +27,17 @@ export default class UserController {
   }
   async getAllUsers(req, res) {
     try {
+      if (req.user.role !== "admin") {
+        return res.status(403).send("Acceso Denegado solo para administradores");
+      }
       const users = await userRepository.getUsers();
-      res.status(200).json(users);
+      const usersMapeado= users.map(user => ({
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        role: user.role,
+      }));
+      res.status(200).render('users', { users: usersMapeado });
     } catch (error) {
       res.status(500).send("Error al obtener los usuarios");
     }
@@ -159,6 +168,15 @@ export default class UserController {
 
       if (!user) {
         return res.status(404).send("Usuario no encontrado");
+      }
+      const documentacionRequerida = ["Identificacion", "Comprobante de domicilio", "Comprobante de estado de cuenta"];
+
+      const userDocuments = user.documents.map(doc => doc.name);
+
+      const tieneDocumentacion = documentacionRequerida.every(doc => userDocuments.includes(doc));
+
+      if (!tieneDocumentacion) {
+          return res.status(400).send("El usuario tiene que completar toda la documentacion requerida");
       }
       const nuevoRol = user.role === "usuario" ? "premium" : "usuario";
       const actualizado = await userRepository.modifyUser(uid, {
